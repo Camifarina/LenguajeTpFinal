@@ -169,3 +169,27 @@ Received Import Request.
   path: Assets/Scenes
   artifactKey: Guid(131a6b21c8605f84396be9f6751fb6e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Scenes using Guid(131a6b21c8605f84396be9f6751fb6e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c23e514d24f6b65fe96946cd87fc526') in 0.010061 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1091.619221 seconds.
+  path: Assets
+  artifactKey: Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets using Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79842766b460edbeab6a34051e857a80') in 0.007940 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 11.516984 seconds.
+  path: Assets/Components
+  artifactKey: Guid(0d7f5c420122bc94ba323100e3f64354) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Components using Guid(0d7f5c420122bc94ba323100e3f64354) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '116666ba477fefa67011bc9a1f065bfc') in 0.005927 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 19.489967 seconds.
+  path: Assets/Scripts
+  artifactKey: Guid(b8fa03af4c2a50d4ba4086903cc06db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts using Guid(b8fa03af4c2a50d4ba4086903cc06db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c7834845388c917b6600563b2baaffd') in 0.006090 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.328396 seconds.
+  path: Assets/Sonido
+  artifactKey: Guid(6a830adfceb7b594796ea7949fa9c185) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sonido using Guid(6a830adfceb7b594796ea7949fa9c185) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ce80f3a21c2f7b4318db25bc1a41b06') in 0.005733 seconds 
