@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
-    public float velocidadBala = 5f; // Velocidad de la bala.
+    public float velocidadBala = 4f; // Velocidad de la bala.
     private Transform player; // Referencia al personaje.
     private Vector2 direccion; // Dirección hacia el personaje.
+    private int colisiones = 0;
 
     void Start()
     {
@@ -24,6 +25,8 @@ public class Bala : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Debug.Log(colisiones);
     }
 
     bool IsOutOfScreen()
@@ -33,4 +36,12 @@ public class Bala : MonoBehaviour
     }
 
     // Agrega aquí el código para detectar colisiones con el personaje u otros objetos si es necesario.
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+            colisiones++;
+        }
+    }
 }

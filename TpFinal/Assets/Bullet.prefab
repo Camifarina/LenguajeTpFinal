@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 351282528622983764}
   - component: {fileID: 1979772212815902009}
   - component: {fileID: 2191776535988629574}
+  - component: {fileID: -3655193488682007045}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bala
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +99,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadBala: 10
+--- !u!58 &-3655193488682007045
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2391576772046328153}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.1799998
