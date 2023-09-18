@@ -59,17 +59,20 @@ public class VillainController : MonoBehaviour
             {
                 // El personaje está a la derecha, el sprite del villano debería mirar a la derecha.
                 transform.localScale = new Vector3(1, 1, 1);
+
             }
             else if (velocity.x < 0)
             {
                 // El personaje está a la izquierda, el sprite del villano debería mirar a la izquierda.
-                transform.localScale = new Vector3(-1, 1, 1);
+                 transform.localScale = new Vector3(-1, 1, 1);
+
             }
 
             if (Time.time - lastShotTime >= shootingCooldown)
             {
                 Shoot(); // Disparar hacia el personaje si se cumple el tiempo de espera.
             }
+
         }
         else
         {
