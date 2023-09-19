@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
+    public Transform villano_pos; //Villano
+    public float distanciaParaMatar = 50f;
+    public EnemiShoot enemigo;
+
     private Rigidbody2D rb;
     private GroundDetector groundDetector; // Referencia al detector de suelo.
 
@@ -18,6 +22,10 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         groundDetector = GetComponent<GroundDetector>(); // Obtén la referencia al detector de suelo.
+
+        villano_pos = GameObject.Find("Villain").transform; //Villano
+        enemigo = villano_pos.GetComponent<EnemiShoot>();
+
     }
 
     private void Update()
@@ -38,12 +46,28 @@ public class PlayerController : MonoBehaviour
         }
 
         // Saltar solo si está en el suelo
-        if (Input.GetKeyDown(KeyCode.Space) )
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
-        Debug.Log(colisiones);
+        if (villano_pos.position.x > this.transform.position.x)
+        {
+            float distancia = Vector2.Distance(transform.position, villano_pos.position);
+
+            if (distancia < distanciaParaMatar && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A)))
+            {
+                if (enemigo != null)
+                {
+                    Debug.Log("El villano está muerto");
+                    enemigo.atacado = 1;
+                }
+                else {
+                    Debug.Log("Enemigo es null");
+                }
+            }
+            Debug.Log(colisiones);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D colision)

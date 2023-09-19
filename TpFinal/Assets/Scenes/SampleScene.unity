@@ -602,12 +602,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca307cdf7b350fc4e86b42f18ea95ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_pos: {fileID: 0}
+  player_pos: {fileID: 1989103111}
   speed: 6
   distanciaFrenado: 6
   distanciaRetraso: 6
   puntoInstancia: {fileID: 226463215}
   bala: {fileID: 2391576772046328153, guid: 4aa7eeddd8ebfe74c9c9149fd0345d13, type: 3}
+  atacado: 0
+  estaMuerto: 0
 --- !u!1 &1064707927
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +873,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 10
+  villano_pos: {fileID: 861665029}
+  distanciaParaMatar: 50
+  enemigo: {fileID: 861665031}
   vidas: 3
 --- !u!50 &1989103109
 Rigidbody2D:
