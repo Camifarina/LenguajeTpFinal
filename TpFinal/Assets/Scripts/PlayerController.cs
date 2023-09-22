@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,12 +12,15 @@ public class PlayerController : MonoBehaviour
     public Transform villano_pos; //Villano
     public float distanciaParaMatar = 50f;
     public EnemiShoot enemigo;
+    
 
     private Rigidbody2D rb;
     private GroundDetector groundDetector; // Referencia al detector de suelo.
 
     private int colisiones = 0; // Contador de colisiones.
     public int vidas = 3; // Número máximo de colisiones antes de perder.
+    
+    private Animator animator; //personaje que se mueva
 
     private void Start()
     {
@@ -25,20 +29,30 @@ public class PlayerController : MonoBehaviour
 
         villano_pos = GameObject.Find("Villain").transform; //Villano
         enemigo = villano_pos.GetComponent<EnemiShoot>();
+        
+        animator = GetComponent<Animator>();
+
+        
 
     }
 
     private void Update()
     {
+        
+
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+           
+           // animator.SetBool("isRun", true);
         }
         // Mover a la derecha
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+           
+           // animator.SetBool("isRun", false);
         }
         else
         {
