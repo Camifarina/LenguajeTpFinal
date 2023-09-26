@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Boton : MonoBehaviour
-{
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene(1);
 
-        }
+public class ChangeSceneWithButton : MonoBehaviour
+{
+    public void loadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
+
+ 
 }
+  
