@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
 
     public Transform villano_pos; //Villano
-    public float distanciaParaMatar = 50f;
+    public float distanciaParaMatar = 5f;
     public EnemiShoot enemigo;
 
     private Rigidbody2D rb;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator Animator;
 
-    public bool isGrounded = false;
+    public bool isGrounded;
 
     private void Start()
     {
@@ -33,19 +33,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Mover a la izquierda
+            // Mover a la izquierda
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
                 transform.localScale = new Vector3(-2, 2, 2);
+            if (isGrounded)
+            {
                 Animator.SetBool("Camina", true);
+            }
             }
             // Mover a la derecha
             else if (Input.GetKey(KeyCode.RightArrow))
             {
                 rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
                 transform.localScale = new Vector3(2, 2, 2);
+            if (isGrounded)
+            {
                 Animator.SetBool("Camina", true);
+            }
             }
         else
         {
@@ -53,10 +59,11 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("Camina", false);
         }
         // Saltar solo si está en el suelo
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
                 {
                     rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                     Animator.SetBool("Salta", true);
+                    isGrounded = false;
                 }
             else
             {
@@ -67,25 +74,32 @@ public class PlayerController : MonoBehaviour
         {
             float distancia = Vector2.Distance(transform.position, villano_pos.position);
 
-            if (distancia < distanciaParaMatar && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A)))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A))
             {
-                if (enemigo != null)
+                Animator.SetBool("Mata", true);
+                if (distancia < distanciaParaMatar)
                 {
-                    Debug.Log("El villano está muerto");
-                    enemigo.atacado = 1;
+                    if (enemigo != null)
+                    {
+                        Debug.Log("El villano está muerto");
+                        enemigo.atacado = 1;
+                    }
+                    else
+                    {
+                        Debug.Log("Enemigo es null");
+                    }
                 }
-                else {
-                    Debug.Log("Enemigo es null");
-                }
+            }
+            else 
+            {
+                Animator.SetBool("Mata", false);
             }
             Debug.Log(colisiones);
         }
+        Debug.Log(isGrounded);
     }
 
-    //public bool IsGrounded()
-    //{
-    //    return isGrounded;
-    //}
+
 
     void OnCollisionEnter2D(Collision2D colision)
     {
@@ -100,14 +114,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
-        //{
-        //    isGrounded = true;
-        //}
-        //else
-        //{
-        //    isGrounded = false;
-        //}
+        if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
+        {
+            isGrounded = true;
+        }
     }
 
     void Die()

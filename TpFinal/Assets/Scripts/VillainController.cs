@@ -5,7 +5,7 @@ using UnityEngine;
 public class VillainController : MonoBehaviour
 {
     
-    public float detectionDistance = 5f; // Distancia de detección del personaje.
+    public float detectionDistance = 3f; // Distancia de detección del personaje.
     public float shootingCooldown = 1f; // Tiempo entre disparos.
     public GameObject bulletPrefab; // Prefab del proyectil.
     public float moveSpeed = 2f; // Velocidad de movimiento del villano.
