@@ -110,6 +110,24 @@ public class PlayerController : MonoBehaviour
                 Animator.SetBool("Mata", false);
             }
             Debug.Log(colisiones);
+
+            if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+            {
+               
+                if (distancia < distanciaParaMatar)
+                {
+                    if (enemigo != null)
+                    {
+                        transform.localScale = new Vector3(2, 2, 2);
+                        Animator.SetBool("sacamascara", true);
+                        Debug.Log("El villano ha sido desenmascarado");
+                        enemigo.sinmascara = 1;
+                    }
+                }
+            }
+            else {
+                Animator.SetBool("sacamascara", false);
+            }
         }
         Debug.Log(isGrounded);
     }

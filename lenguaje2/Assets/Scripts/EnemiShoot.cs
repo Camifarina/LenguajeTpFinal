@@ -15,6 +15,8 @@ public class EnemiShoot : MonoBehaviour
     private float tiempo;
     public int atacado;
     public bool estaMuerto;
+    public int sinmascara;
+    public bool sinMascara;
 
     private BoxCollider2D villainCollider;
     private Rigidbody2D rb;
@@ -38,7 +40,7 @@ public class EnemiShoot : MonoBehaviour
     {
         // Disparo
         tiempo += Time.deltaTime;
-        if (tiempo >= 2 && player_pos.position.x < this.transform.position.x && !estaMuerto)
+        if (tiempo >= 2 && player_pos.position.x < this.transform.position.x && !estaMuerto && !sinMascara)
         {
             float distancia = Vector2.Distance(transform.position, player_pos.position);
             if (distancia < distanciaparaDisparar)
@@ -56,6 +58,12 @@ public class EnemiShoot : MonoBehaviour
             villainCollider.enabled = false;
             rb.gravityScale = 0f; // Desactivar la gravedad en 2D
             Animator.SetBool("muerto", true);
+        }
+        if (sinmascara == 1) {
+            sinMascara = true;
+            villainCollider.enabled = false;
+            rb.gravityScale = 0f;
+            Animator.SetBool("sinmascara", true);
         }
     }
 }
