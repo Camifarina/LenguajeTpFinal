@@ -18,7 +18,7 @@ public class Bala : MonoBehaviour
     void Update()
     {
         // Mover la bala en la dirección calculada.
-        transform.Translate(direccion * velocidadBala * Time.deltaTime);
+transform.Translate(direccion * velocidadBala * Time.deltaTime);
 
         // Destruir la bala si está fuera de la pantalla o colisiona con algo.
         if (IsOutOfScreen())
