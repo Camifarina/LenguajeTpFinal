@@ -1276,6 +1276,7 @@ MonoBehaviour:
   speed: 6
   distanciaFrenado: 3
   distanciaRetraso: 3
+  distanciaparaDisparar: 10
   controladorDisparo: {fileID: 1546519116}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
   atacado: 0

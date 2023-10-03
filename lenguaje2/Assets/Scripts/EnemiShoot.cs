@@ -8,6 +8,7 @@ public class EnemiShoot : MonoBehaviour
     public float speed = 1f;
     public float distanciaFrenado;
     public float distanciaRetraso;
+    public float distanciaparaDisparar = 20f;
 
     public Transform controladorDisparo;
     public GameObject bala;
@@ -39,11 +40,15 @@ public class EnemiShoot : MonoBehaviour
         tiempo += Time.deltaTime;
         if (tiempo >= 2 && player_pos.position.x < this.transform.position.x && !estaMuerto)
         {
-            SoundManager.instance.PlaySound("sonidoLanzar"); // Añade esta línea
-            // Calcular la dirección hacia el jugador
-            Vector3 direccionHaciaJugador = (player_pos.position - controladorDisparo.position).normalized;
-            Instantiate(bala, controladorDisparo.position, Quaternion.FromToRotation(Vector3.left, direccionHaciaJugador));
-            tiempo = 0;
+            float distancia = Vector2.Distance(transform.position, player_pos.position);
+            if (distancia < distanciaparaDisparar)
+            {
+                SoundManager.instance.PlaySound("sonidoLanzar"); // Añade esta línea
+                                                                 // Calcular la dirección hacia el jugador
+                Vector3 direccionHaciaJugador = (player_pos.position - controladorDisparo.position).normalized;
+                Instantiate(bala, controladorDisparo.position, Quaternion.FromToRotation(Vector3.left, direccionHaciaJugador));
+                tiempo = 0;
+            }
         }
         Debug.Log(tiempo);
         if (atacado == 1) {
