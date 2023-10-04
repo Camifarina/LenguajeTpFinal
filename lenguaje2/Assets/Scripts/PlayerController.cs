@@ -11,8 +11,13 @@ public class PlayerController : MonoBehaviour
     public AudioClip pasosSound; // Sonido de pasos.
 
     public Transform villano_pos; //Villano
+    public Transform villano_pos2;
     public float distanciaParaMatar = 5f;
+    public float distancia;
+    public float distancia2;
     public EnemiShoot enemigo;
+    public EnemiShoot2 enemigo2;
+
 
     private Rigidbody2D rb;
 
@@ -34,6 +39,9 @@ public class PlayerController : MonoBehaviour
         villano_pos = GameObject.Find("Villain").transform; //Villano
         enemigo = villano_pos.GetComponent<EnemiShoot>();
 
+        villano_pos2 = GameObject.Find("Villain2").transform; //Villano2
+        enemigo2 = villano_pos2.GetComponent<EnemiShoot2>();
+
         Animator = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
@@ -43,29 +51,29 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-            // Mover a la izquierda
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-                transform.localScale = new Vector3(-2, 2, 2);
-                TryPlayFootstepSound();
+        // Mover a la izquierda
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            transform.localScale = new Vector3(-2, 2, 2);
+            TryPlayFootstepSound();
             if (isGrounded)
             {
                 Animator.SetBool("Camina", true);
             }
-            }
-            // Mover a la derecha
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-                transform.localScale = new Vector3(2, 2, 2);
-                TryPlayFootstepSound();
+        }
+        // Mover a la derecha
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            transform.localScale = new Vector3(2, 2, 2);
+            TryPlayFootstepSound();
             if (isGrounded)
             {
                 Animator.SetBool("Camina", true);
                 SoundManager.instance.PlaySound("sonidoPasos");
             }
-            }
+        }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -74,61 +82,75 @@ public class PlayerController : MonoBehaviour
         }
 
         // Saltar solo si está en el suelo
-            // if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            //     {
-            //         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            //         Animator.SetBool("Salta", true);
-            //         isGrounded = false;
-            //     }
-            // else
-            // {
-            //     Animator.SetBool("Salta", false);
-            // }
-
-        if (villano_pos.position.x > this.transform.position.x)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            float distancia = Vector2.Distance(transform.position, villano_pos.position);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            Animator.SetBool("Salta", true);
+            isGrounded = false;
+        }
+        else
+        {
+            Animator.SetBool("Salta", false);
+        }
 
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A))
+        distancia = Vector2.Distance(transform.position, villano_pos.position);
+        distancia2 = Vector2.Distance(transform.position, villano_pos2.position);
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A))
+        {
+            Animator.SetBool("Mata", true);
+            if (villano_pos.position.x > this.transform.position.x || villano_pos2.position.x > this.transform.position.x)
             {
-                Animator.SetBool("Mata", true);
                 if (distancia < distanciaParaMatar)
                 {
                     if (enemigo != null)
                     {
-                        Debug.Log("El villano está muerto");
                         enemigo.atacado = 1;
                     }
-                    else
+                }
+                if (distancia2 < distanciaParaMatar)
+                {
+                    if (enemigo2 != null)
                     {
-                        Debug.Log("Enemigo es null");
+                        enemigo2.atacado2 = 1;
                     }
                 }
             }
-            else 
-            {
-                Animator.SetBool("Mata", false);
-            }
-            Debug.Log(colisiones);
+        }
+        else
+        {
+            Animator.SetBool("Mata", false);
+        }
+        Debug.Log(colisiones);
 
-            if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            if (villano_pos.position.x > this.transform.position.x || villano_pos2.position.x > this.transform.position.x)
             {
-               
                 if (distancia < distanciaParaMatar)
                 {
                     if (enemigo != null)
                     {
                         transform.localScale = new Vector3(2, 2, 2);
                         Animator.SetBool("sacamascara", true);
-                        Debug.Log("El villano ha sido desenmascarado");
                         enemigo.sinmascara = 1;
                     }
                 }
-            }
-            else {
-                Animator.SetBool("sacamascara", false);
+                if (distancia2 < distanciaParaMatar)
+                {
+                    if (enemigo2 != null)
+                    {
+                        transform.localScale = new Vector3(2, 2, 2);
+                        Animator.SetBool("sacamascara", true);
+                        enemigo2.sinmascara2 = 1;
+                    }
+                }
             }
         }
+        else
+        {
+            Animator.SetBool("sacamascara", false);
+        }
+
         Debug.Log(isGrounded);
     }
 
@@ -172,7 +194,7 @@ public class PlayerController : MonoBehaviour
             if (colisiones >= vidas)
             {
                 //Si el contador alcanza el máximo, llama a la función de muerte.
-               Die();
+                Die();
             }
         }
 
