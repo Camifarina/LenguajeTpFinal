@@ -1753,7 +1753,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 495bb7c91e10b8b40b1faaa3780882ac, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.08
   m_Pitch: 1
@@ -1852,10 +1852,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundSource: {fileID: 1882313350}
+  backgroundMusicSource: {fileID: 0}
   soundClips:
   - {fileID: 8300000, guid: 75c7b32ac60a40e4fa428964ed41b3b0, type: 3}
-  - {fileID: 8300000, guid: 495bb7c91e10b8b40b1faaa3780882ac, type: 3}
+  - {fileID: 8300000, guid: c9f6ec6281fd7ee4e81062cd76ca8b0c, type: 3}
   - {fileID: 8300000, guid: ee72baf412292e548a484fd8c403e245, type: 3}
+  - {fileID: 8300000, guid: e67020f4ed806b444b5d2026c7268c9c, type: 3}
+  - {fileID: 8300000, guid: 743e9e597ad9c0541bef9f9f9417a8d6, type: 3}
+  hayMusicaDeFondo: 1
 --- !u!1 &1989103106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,15 +1909,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 10
-  pasosSound: {fileID: 8300000, guid: 0bca37cd3e0b5ed409042ff77455a9c5, type: 3}
+  pasosSound: {fileID: 8300000, guid: 34a90febae038a14684b2053b4fe1bf8, type: 3}
+  salto: {fileID: 8300000, guid: c1c588c4b3efa684faa45e3363995ffd, type: 3}
+  espada: {fileID: 8300000, guid: 788e067b42664f74bb625a330a2cd58e, type: 3}
+  quitar_mascara: {fileID: 8300000, guid: f7fa4badfa6845744bdee93e27fadbb8, type: 3}
   villano_pos: {fileID: 1281281720}
-  villano_pos2: {fileID: 0}
+  villano_pos2: {fileID: 53223488}
   distanciaParaMatar: 4
   distancia: 0
   distancia2: 0
   enemigo: {fileID: 1281281718}
-  enemigo2: {fileID: 0}
+  enemigo2: {fileID: 53223490}
   vidas: 3
+  vSinMasc: 0
   isGrounded: 0
 --- !u!50 &1989103109
 Rigidbody2D:

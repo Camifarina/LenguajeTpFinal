@@ -7,7 +7,7 @@ public class SonidoPerder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.instance.PlayBackgroundMusic("sonidoPerder");
+        SoundManager.instance.PlayBackgroundMusic("cuernoPerdiste");
     }
 
     // Update is called once per frame

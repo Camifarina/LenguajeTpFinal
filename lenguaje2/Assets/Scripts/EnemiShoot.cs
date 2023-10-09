@@ -64,6 +64,7 @@ public class EnemiShoot : MonoBehaviour
             villainCollider.enabled = false;
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
+            SoundManager.instance.PlaySound("efectoMareado");
         }
     }
 }

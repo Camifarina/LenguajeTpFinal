@@ -8,8 +8,11 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance; // Instancia única del SoundManager.
 
     public AudioSource soundSource; // Referencia al AudioSource principal para reproducir sonidos.
+    public AudioSource backgroundMusicSource; // AudioSource para la música de fondo.
+
 
     public AudioClip[] soundClips; // Matriz para almacenar tus clips de sonido.
+    public bool hayMusicaDeFondo = true;
 
 
     private void Awake()
@@ -28,6 +31,8 @@ public class SoundManager : MonoBehaviour
 
         // Inicializa el AudioSource.
         soundSource = GetComponent<AudioSource>();
+        backgroundMusicSource = gameObject.AddComponent<AudioSource>();
+        backgroundMusicSource.loop = true; // Configura el loop para la música de fondo.
 
     }
 
@@ -47,7 +52,7 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("Sound not found: " + soundName);
         }
 
-        
+
     }
 
     // Método para buscar un sonido por nombre.
@@ -64,21 +69,31 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayBackgroundMusic(string musicName)
-{
-    AudioClip music = FindSoundByName(musicName);
+    {
+        if (hayMusicaDeFondo)
+        {
+            AudioClip music = FindSoundByName(musicName);
 
-    if (music != null)
-    {
-        // Detén la música actual antes de reproducir la nueva.
-        soundSource.Stop();
-        soundSource.clip = music;
-        soundSource.loop = true; // Establece la música en bucle.
-        soundSource.Play();
+            if (music != null)
+            {
+                // Detén la música de fondo actual.
+                backgroundMusicSource.Stop();
+
+                // Establece la nueva música de fondo.
+                backgroundMusicSource.clip = music;
+                backgroundMusicSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Music not found: " + musicName);
+            }
+        }
     }
-    else
+
+    // Nuevo método para detener la música de fondo.
+    public void StopBackgroundMusic()
     {
-        Debug.LogWarning("Music not found: " + musicName);
+        backgroundMusicSource.Stop();
     }
-}
 }
 

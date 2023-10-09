@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,11 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
 
     public AudioClip pasosSound; // Sonido de pasos.
+    public AudioClip salto; // Sonido de salto.
+    public AudioClip espada; // Sonido de espada.
+    public AudioClip quitar_mascara; // Sonido de cuando saca las mascaras.
+    private bool espadaSoundPlayed = false;
+    private bool quitarMascaraSoundPlayed = false;
 
     public Transform villano_pos; //Villano
     public Transform villano_pos2;
@@ -23,11 +29,15 @@ public class PlayerController : MonoBehaviour
 
     private int colisiones = 0; // Contador de colisiones.
     public int vidas = 3; // Número máximo de colisiones antes de perder.
+    public int vSinMasc = 0;
 
     private Animator Animator;
 
     private bool isWalking = false; // Variable para verificar si el personaje está caminando.
-    private AudioSource audioSource; // Referencia al AudioSource para el sonido de pasos.
+    private AudioSource audioPasos; // Referencia al AudioSource para el sonido de pasos.
+    // private AudioSource audioSalto;
+    // private AudioSource audioEspada;
+    // private AudioSource audioMascara;
 
 
     public bool isGrounded;
@@ -44,9 +54,13 @@ public class PlayerController : MonoBehaviour
 
         Animator = GetComponent<Animator>();
 
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = pasosSound;
-        audioSource.loop = false; // Desactiva el bucle inicialmente.
+        /* --- SONIDOS ---  */
+        audioPasos = GetComponent<AudioSource>();
+        audioPasos.clip = pasosSound;
+        audioPasos.loop = false; // Desactiva el bucle inicialmente.
+
+        SoundManager.instance.PlayBackgroundMusic("sonidoAmbiente2");
+
     }
 
     private void Update()
@@ -71,7 +85,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 Animator.SetBool("Camina", true);
-                SoundManager.instance.PlaySound("sonidoPasos");
+                SoundManager.instance.PlaySound("pasosEnLaNieve");
             }
         }
         else
@@ -87,6 +101,11 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Animator.SetBool("Salta", true);
             isGrounded = false;
+
+            if (salto != null)
+            {
+                audioPasos.PlayOneShot(salto);
+            }
         }
         else
         {
@@ -115,10 +134,16 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+            if (!espadaSoundPlayed && espada != null)
+            {
+                audioPasos.PlayOneShot(espada);
+                espadaSoundPlayed = true; // Marca el sonido como reproducido
+            }
         }
         else
         {
             Animator.SetBool("Mata", false);
+            espadaSoundPlayed = false; // Restablece la bandera cuando se suelta la tecla
         }
         Debug.Log(colisiones);
 
@@ -134,6 +159,12 @@ public class PlayerController : MonoBehaviour
                         Animator.SetBool("sacamascara", true);
                         enemigo.sinmascara = 1;
                     }
+                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
+                    {
+                        audioPasos.PlayOneShot(quitar_mascara);
+                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
+                        vSinMasc++;
+                    }
                 }
                 if (distancia2 < distanciaParaMatar)
                 {
@@ -143,15 +174,28 @@ public class PlayerController : MonoBehaviour
                         Animator.SetBool("sacamascara", true);
                         enemigo2.sinmascara2 = 1;
                     }
+                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
+                    {
+                        audioPasos.PlayOneShot(quitar_mascara);
+                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
+                        vSinMasc++;
+                    }
                 }
+
             }
         }
         else
         {
             Animator.SetBool("sacamascara", false);
+            quitarMascaraSoundPlayed = false; // Restablece la bandera cuando se suelta alguna de las teclas
         }
 
         Debug.Log(isGrounded);
+
+        if (vSinMasc >= 2)
+        {
+            Ganar();
+        }
     }
 
     private void TryPlayFootstepSound()
@@ -168,20 +212,20 @@ public class PlayerController : MonoBehaviour
         if (isWalking)
         {
             isWalking = false;
-            audioSource.Stop();
+            audioPasos.Stop();
         }
     }
 
     private IEnumerator PlayFootstepSound()
     {
-        audioSource.Play();
+        audioPasos.Play();
 
         while (isWalking)
         {
             yield return null;
         }
 
-        audioSource.Stop();
+        audioPasos.Stop();
     }
 
 
@@ -201,12 +245,25 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
         {
             isGrounded = true;
+            //audioSalto.Stop();
+        }
+        else
+        {
+            //audioSalto.Play();
         }
     }
 
     void Die()
     {
-        // Carga la escena de Game Over y reinicio
+        // Detén la música de fondo antes de cargar la escena de Game Over y reinicio.
+        SoundManager.instance.StopBackgroundMusic();
+        SoundManager.instance.hayMusicaDeFondo = false;
         SceneManager.LoadScene(3);
+    }
+    void Ganar()
+    {
+        SoundManager.instance.StopBackgroundMusic();
+        SoundManager.instance.hayMusicaDeFondo = false;
+        SceneManager.LoadScene(2);
     }
 }
