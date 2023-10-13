@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SonidoPerder : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        SoundManager.instance.PlayBackgroundMusic("cuernoPerdiste");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
