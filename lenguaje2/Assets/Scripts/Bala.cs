@@ -8,6 +8,7 @@ public class Bala : MonoBehaviour
     private Transform player; // Referencia al personaje.
     private Vector2 direccion; // Dirección hacia el personaje.
     private int colisiones = 0;
+    private int tiempoMareado = 0; // Contador de tiempo
 
     void Start()
     {
@@ -42,6 +43,7 @@ transform.Translate(direccion * velocidadBala * Time.deltaTime);
         {
             Destroy(gameObject);
             colisiones++;
+            tiempoMareado++;
         }
     }
 }

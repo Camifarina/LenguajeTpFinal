@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private int colisiones = 0; // Contador de colisiones.
+    private bool mareado = false; 
+    private bool muerto = false; 
+    private int tiempoMareado = 0; 
+    private int tiempoMuerto = 0; 
+    public int segMareado;
     public int vidas = 3; // Número máximo de colisiones antes de perder.
     public int vSinMasc = 0;
 
@@ -145,7 +150,8 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("Mata", false);
             espadaSoundPlayed = false; // Restablece la bandera cuando se suelta la tecla
         }
-        Debug.Log(colisiones);
+        Debug.Log("colisiones: "+colisiones);
+        
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
@@ -192,9 +198,30 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log(isGrounded);
 
-        if (vSinMasc >= 2)
+        if (vSinMasc >= 8)
         {
             Ganar();
+        }
+
+        if (mareado)
+        {
+            tiempoMareado++;
+            if (tiempoMareado >= segMareado*60) // Aquí, 120 representa la cantidad de fotogramas aproximadamente durante 2 segundos.
+            {
+                mareado = false; // Desactiva el estado de "mareado" después de 2 segundos.
+                Animator.SetBool("mareado", false);
+                tiempoMareado = 0; // Restablece el temporizador.
+            }
+        }
+        if (muerto)
+        {
+            tiempoMuerto++;
+            Animator.SetBool("muerto", true);
+            if (tiempoMuerto >= 10*60)
+            {
+                Die();
+                Animator.SetBool("muerto", false);
+            }
         }
     }
 
@@ -234,13 +261,17 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Bala"))
         {
             colisiones++; // Incrementa el contador de colisiones.
-
+            mareado= true;
+            Animator.SetBool("mareado", true);
+           
             if (colisiones >= vidas)
             {
                 //Si el contador alcanza el máximo, llama a la función de muerte.
-                Die();
+                //Die();
+                muerto = true;
             }
-        }
+        } 
+        
 
         if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
         {
