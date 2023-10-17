@@ -3,9 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
+    public SerialPort puerto = new SerialPort("COM3", 9600);
+    public bool izquierda = false;
+    public bool derecha = false;
+    public bool saltar = false;
+    public bool matar = false;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
@@ -28,10 +34,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private int colisiones = 0; // Contador de colisiones.
-    private bool mareado = false; 
-    private bool muerto = false; 
-    private int tiempoMareado = 0; 
-    private int tiempoMuerto = 0; 
+    private bool mareado = false;
+    private bool muerto = false;
+    private int tiempoMareado = 0;
+    private int tiempoMuerto = 0;
     public int segMareado;
     public int vidas = 3; // Número máximo de colisiones antes de perder.
     public int vSinMasc = 0;
@@ -49,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        puerto.ReadTimeout = 30;
+        puerto.Open();
         rb = GetComponent<Rigidbody2D>();
 
         villano_pos = GameObject.Find("Villain").transform; //Villano
@@ -70,8 +78,36 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        try
+        {
+            if (puerto.IsOpen)
+            {
+                string dato_recibido = puerto.ReadLine();
+                if (dato_recibido.Equals("I"))
+                {
+                    izquierda = true;
+                }
+                else if (dato_recibido.Equals("D"))
+                {
+                    derecha = true;
+                }
+                else if (dato_recibido.Equals("S"))
+                {
+                    saltar = true;
+                }
+                else if (dato_recibido.Equals("A"))
+                {
+                    matar = true;
+                }
+            }
+        }
+        catch (System.Exception ex1)
+        {
+            ex1 = new System.Exception();
+        }
+
         // Mover a la izquierda
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
         {
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             transform.localScale = new Vector3(-2, 2, 2);
@@ -82,7 +118,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Mover a la derecha
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow) || derecha)
         {
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
             transform.localScale = new Vector3(2, 2, 2);
@@ -101,7 +137,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Saltar solo si está en el suelo
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded || saltar && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Animator.SetBool("Salta", true);
@@ -119,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
         distancia = Vector2.Distance(transform.position, villano_pos.position);
         distancia2 = Vector2.Distance(transform.position, villano_pos2.position);
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A) || matar)
         {
             Animator.SetBool("Mata", true);
             if (villano_pos.position.x > this.transform.position.x || villano_pos2.position.x > this.transform.position.x)
@@ -150,8 +186,8 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("Mata", false);
             espadaSoundPlayed = false; // Restablece la bandera cuando se suelta la tecla
         }
-        Debug.Log("colisiones: "+colisiones);
-        
+        Debug.Log("colisiones: " + colisiones);
+
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
@@ -206,7 +242,7 @@ public class PlayerController : MonoBehaviour
         if (mareado)
         {
             tiempoMareado++;
-            if (tiempoMareado >= segMareado*60) // Aquí, 120 representa la cantidad de fotogramas aproximadamente durante 2 segundos.
+            if (tiempoMareado >= segMareado * 60) // Aquí, 120 representa la cantidad de fotogramas aproximadamente durante 2 segundos.
             {
                 mareado = false; // Desactiva el estado de "mareado" después de 2 segundos.
                 Animator.SetBool("mareado", false);
@@ -217,12 +253,17 @@ public class PlayerController : MonoBehaviour
         {
             tiempoMuerto++;
             Animator.SetBool("muerto", true);
-            if (tiempoMuerto >= 10*60)
+            if (tiempoMuerto >= 10 * 60)
             {
                 Die();
                 Animator.SetBool("muerto", false);
             }
         }
+
+    izquierda = false;
+    derecha = false;
+    matar = false;
+    saltar = false;
     }
 
     private void TryPlayFootstepSound()
@@ -261,17 +302,17 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Bala"))
         {
             colisiones++; // Incrementa el contador de colisiones.
-            mareado= true;
+            mareado = true;
             Animator.SetBool("mareado", true);
-           
+
             if (colisiones >= vidas)
             {
                 //Si el contador alcanza el máximo, llama a la función de muerte.
                 //Die();
                 muerto = true;
             }
-        } 
-        
+        }
+
 
         if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
         {
