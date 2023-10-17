@@ -22,11 +22,12 @@ public class PlayerController : MonoBehaviour
     private bool espadaSoundPlayed = false;
     private bool quitarMascaraSoundPlayed = false;
 
-    public Transform villano_pos, villano_pos2, villano_pos3, villano_pos4; //Villano
-    public float distanciaParaMatar = 5f;
-    public float distancia, distancia2, distancia3, distancia4;
-    public EnemiShoot enemigo, enemigo2, enemigo3, enemigo4;
 
+    private Transform[] villano_pos = new Transform[8];
+    public float distanciaParaMatar = 5f;
+    private float[] distancia = new float[8];
+    private EnemiShoot[] enemigo = new EnemiShoot[8];
+    private bool eSinMascara = false;
     public Transform controladorSenal;
     public GameObject senal_izq;
     public Transform controladorSenal2;
@@ -60,17 +61,19 @@ public class PlayerController : MonoBehaviour
         puerto.Open();  //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
-        villano_pos = GameObject.Find("Villain").transform; //Villano
-        enemigo = villano_pos.GetComponent<EnemiShoot>();
+        villano_pos[0] = GameObject.Find("Villain").transform;
+        villano_pos[1] = GameObject.Find("Villain2").transform;
+        villano_pos[2] = GameObject.Find("Villain3").transform;
+        villano_pos[3] = GameObject.Find("Villain4").transform;
+        villano_pos[4] = GameObject.Find("Villain5").transform;
+        villano_pos[5] = GameObject.Find("Villain6").transform;
+        villano_pos[6] = GameObject.Find("Villain7").transform;
+        villano_pos[7] = GameObject.Find("Villain8").transform;
+        for (int i = 0; i < 8; i++)
+        {
+            enemigo[i] = villano_pos[i].GetComponent<EnemiShoot>();
+        }
 
-        villano_pos2 = GameObject.Find("Villain2").transform; //Villano2
-        enemigo2 = villano_pos2.GetComponent<EnemiShoot>();
-
-        villano_pos3 = GameObject.Find("Villain3").transform;
-        enemigo3 = villano_pos3.GetComponent<EnemiShoot>();
-
-        villano_pos4 = GameObject.Find("Villain4").transform;
-        enemigo4 = villano_pos4.GetComponent<EnemiShoot>();
 
         Animator = GetComponent<Animator>();
 
@@ -160,46 +163,26 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("Salta", false);
         }
 
-        distancia = Vector2.Distance(transform.position, villano_pos.position);
-        distancia2 = Vector2.Distance(transform.position, villano_pos2.position);
-        distancia3 = Vector2.Distance(transform.position, villano_pos3.position);
-        distancia4 = Vector2.Distance(transform.position, villano_pos4.position);
+        for (int i = 0; i < 8; i++)
+        {
+            distancia[i] = Vector2.Distance(transform.position, villano_pos[i].position);
+        }
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A) || matar)
         {
             Animator.SetBool("Mata", true);
-            if (villano_pos.position.x > this.transform.position.x ||
-            villano_pos2.position.x > this.transform.position.x ||
-            villano_pos3.position.x > this.transform.position.x ||
-            villano_pos4.position.x > this.transform.position.x)
-            {
-                if (distancia < distanciaParaMatar)
-                {
-                    if (enemigo != null)
-                    {
-                        enemigo.estaMuerto = true;
-                    }
-                }
-                if (distancia2 < distanciaParaMatar)
-                {
-                    if (enemigo2 != null)
-                    {
-                        enemigo2.estaMuerto = true;
-                    }
-                }
-                if (distancia3 < distanciaParaMatar)
-                {
-                    if (enemigo3 != null)
-                    {
-                        enemigo3.estaMuerto = true;
-                    }
-                }
-                if (distancia4 < distanciaParaMatar)
-                {
-                    if (enemigo4 != null)
-                    {
-                        enemigo4.estaMuerto = true;
-                    }
 
+            for (int i = 0; i < 8; i++)
+            {
+                if (villano_pos[i].position.x > this.transform.position.x)
+                {
+                    if (distancia[i] < distanciaParaMatar)
+                    {
+                        if (enemigo[i] != null)
+                        {
+                            enemigo[i].estaMuerto = true;
+                        }
+                    }
                 }
             }
             if (!espadaSoundPlayed && espada != null)
@@ -215,95 +198,48 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log("colisiones: " + colisiones);
 
-
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
-            if (villano_pos.position.x > this.transform.position.x ||
-             villano_pos2.position.x > this.transform.position.x ||
-              villano_pos3.position.x > this.transform.position.x ||
-              villano_pos4.position.x > this.transform.position.x)
+            for (int i = 0; i < 8; i++)
             {
-                if (distancia < distanciaParaMatar)
+                if (villano_pos[i].position.x > this.transform.position.x)
                 {
-                    Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
-                    Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
-                    tirarSenal = true;
-                    if (enemigo != null)
+                    if (distancia[i] < distanciaParaMatar)
                     {
-                        transform.localScale = new Vector3(2, 2, 2);
-                        Animator.SetBool("sacamascara", true);
-                        enemigo.sinMascara = true;
-                    }
-                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
-                    {
-                        audioPasos.PlayOneShot(quitar_mascara);
-                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
-                        vSinMasc++;
-                    }
-                }
-                else if (distancia2 < distanciaParaMatar)
-                {
-                    tirarSenal = true;
-                    if (enemigo2 != null)
-                    {
-                        transform.localScale = new Vector3(2, 2, 2);
-                        Animator.SetBool("sacamascara", true);
-                        enemigo2.sinMascara = true;
-                    }
-                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
-                    {
-                        audioPasos.PlayOneShot(quitar_mascara);
-                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
-                        vSinMasc++;
-                    }
-                }
-                else if (distancia3 < distanciaParaMatar)
-                {
-                    tirarSenal = true;
-                    if (enemigo3 != null)
-                    {
-                        transform.localScale = new Vector3(2, 2, 2);
-                        Animator.SetBool("sacamascara", true);
-                        enemigo3.sinMascara = true;
-                    }
-                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
-                    {
-                        audioPasos.PlayOneShot(quitar_mascara);
-                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
-                        vSinMasc++;
-                    }
+                        if (enemigo[i] != null)
+                        {
+                            transform.localScale = new Vector3(2, 2, 2);
+                            Animator.SetBool("sacamascara", true);
+                            enemigo[i].sinMascara = true;
+                            eSinMascara = true;
 
-                }
-                else if (distancia4 < distanciaParaMatar)
-                {
-                    tirarSenal = true;
-                    if (enemigo4 != null)
-                    {
-                        transform.localScale = new Vector3(2, 2, 2);
-                        Animator.SetBool("sacamascara", true);
-                        enemigo4.sinMascara = true;
+                        }
+                        if (!quitarMascaraSoundPlayed && quitar_mascara != null)
+                        {
+                            audioPasos.PlayOneShot(quitar_mascara);
+                            quitarMascaraSoundPlayed = true;
+                            eSinMascara = true;
+                        }
+                        else
+                        {
+                            eSinMascara = false;
+                        }
                     }
-                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
-                    {
-                        audioPasos.PlayOneShot(quitar_mascara);
-                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
-                        vSinMasc++;
-                    }
-
-                }
-                else
-                {
-                    tirarSenal = false;
                 }
             }
-
         }
         else
         {
             Animator.SetBool("sacamascara", false);
-            quitarMascaraSoundPlayed = false; // Restablece la bandera cuando se suelta alguna de las teclas
+            quitarMascaraSoundPlayed = false;
         }
-        Debug.Log(isGrounded);
+        if (eSinMascara == true)
+        {
+            vSinMasc = vSinMasc + 1;
+        }
+
+        //Debug.Log(isGrounded);
+        Debug.Log("villanos liberados: " + vSinMasc);
 
         if (vSinMasc >= 8)
         {
@@ -331,12 +267,12 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("mareado", false);
         }
 
-        if (tirarSenal)
-        {
-            Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
-            Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+        // if (tirarSenal)
+        // {
+        //     Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+        //     Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
 
-        }
+        // }
         izquierda = false;
         derecha = false;
         matar = false;

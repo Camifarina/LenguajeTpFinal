@@ -2733,6 +2733,7 @@ GameObject:
   - component: {fileID: 1492519962}
   - component: {fileID: 1492519961}
   - component: {fileID: 1492519960}
+  - component: {fileID: 1492519966}
   m_Layer: 0
   m_Name: Villain6
   m_TagString: Villain
@@ -2887,6 +2888,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1492519966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492519959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca307cdf7b350fc4e86b42f18ea95ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_pos: {fileID: 1989103111}
+  raulcito: {fileID: 1989103108}
+  speed: 6
+  distanciaFrenado: 3
+  distanciaRetraso: 3
+  distanciaparaDisparar: 10
+  controladorDisparo: {fileID: 1826379844}
+  bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  estaMuerto: 0
+  sinMascara: 0
 --- !u!1 &1546519115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,6 +3133,7 @@ GameObject:
   - component: {fileID: 1807664092}
   - component: {fileID: 1807664091}
   - component: {fileID: 1807664090}
+  - component: {fileID: 1807664096}
   m_Layer: 0
   m_Name: Villain8
   m_TagString: Villain
@@ -3264,6 +3288,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807664096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807664089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca307cdf7b350fc4e86b42f18ea95ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_pos: {fileID: 1989103111}
+  raulcito: {fileID: 1989103108}
+  speed: 6
+  distanciaFrenado: 3
+  distanciaRetraso: 3
+  distanciaparaDisparar: 10
+  controladorDisparo: {fileID: 5671196}
+  bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  estaMuerto: 0
+  sinMascara: 0
 --- !u!1 &1817723200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3644,19 +3690,7 @@ MonoBehaviour:
   salto: {fileID: 8300000, guid: c1c588c4b3efa684faa45e3363995ffd, type: 3}
   espada: {fileID: 8300000, guid: 788e067b42664f74bb625a330a2cd58e, type: 3}
   quitar_mascara: {fileID: 8300000, guid: f7fa4badfa6845744bdee93e27fadbb8, type: 3}
-  villano_pos: {fileID: 1281281720}
-  villano_pos2: {fileID: 53223488}
-  villano_pos3: {fileID: 1447688605}
-  villano_pos4: {fileID: 1256447301}
   distanciaParaMatar: 4
-  distancia: 0
-  distancia2: 0
-  distancia3: 0
-  distancia4: 0
-  enemigo: {fileID: 1281281718}
-  enemigo2: {fileID: 53223490}
-  enemigo3: {fileID: 1447688606}
-  enemigo4: {fileID: 1256447302}
   controladorSenal: {fileID: 1938722218}
   senal_izq: {fileID: 1787635415467005597, guid: 93aaa0a4c7e865b4e99810efa5692c32, type: 3}
   controladorSenal2: {fileID: 939649117}

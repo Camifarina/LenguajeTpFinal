@@ -27,7 +27,7 @@ transform.Translate(direccion * velocidadBala * Time.deltaTime);
             Destroy(gameObject);
         }
 
-        Debug.Log(colisiones);
+        //Debug.Log(colisiones);
     }
 
     bool IsOutOfScreen()

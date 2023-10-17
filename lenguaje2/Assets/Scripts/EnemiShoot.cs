@@ -55,7 +55,7 @@ public class EnemiShoot : MonoBehaviour
                 Animator.SetBool("ataca", false);
             }
         }
-        Debug.Log(tiempo);
+        //Debug.Log(tiempo);
         if (estaMuerto)
         {
             villainCollider.enabled = false;
@@ -70,6 +70,7 @@ public class EnemiShoot : MonoBehaviour
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
             SoundManager.instance.PlaySound("efectoMareado");
+            
         }
     }
 }
