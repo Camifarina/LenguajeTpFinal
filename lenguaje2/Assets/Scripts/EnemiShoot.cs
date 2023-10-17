@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemiShoot : MonoBehaviour
 {
     public Transform player_pos;
-    public  PlayerController raulcito;
+    public PlayerController raulcito;
     public float speed = 1f;
     public float distanciaFrenado;
     public float distanciaRetraso;
@@ -45,23 +45,28 @@ public class EnemiShoot : MonoBehaviour
             {
                 SoundManager.instance.PlaySound("sonidoLanzar"); // Añade esta línea
                 Animator.SetBool("ataca", true);
-                                                                 // Calcular la dirección hacia el jugador
+                // Calcular la dirección hacia el jugador
                 Vector3 direccionHaciaJugador = (player_pos.position - controladorDisparo.position).normalized;
                 Instantiate(bala, controladorDisparo.position, Quaternion.FromToRotation(Vector3.left, direccionHaciaJugador));
                 tiempo = 0;
             }
-             else {
+            else
+            {
                 Animator.SetBool("ataca", false);
             }
         }
         Debug.Log(tiempo);
-        if (estaMuerto) {
+        if (estaMuerto)
+        {
             villainCollider.enabled = false;
+            rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f; // Desactivar la gravedad en 2D
             Animator.SetBool("muerto", true);
         }
-        if (sinMascara) {
+        if (sinMascara)
+        {
             villainCollider.enabled = false;
+            rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
             SoundManager.instance.PlaySound("efectoMareado");

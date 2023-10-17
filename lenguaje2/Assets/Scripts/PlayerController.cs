@@ -7,7 +7,7 @@ using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
-    // public SerialPort puerto = new SerialPort("COM3", 9600); //Descomentar cuando se conecta el arduino
+    public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
     public bool izquierda = false;
     public bool derecha = false;
     public bool saltar = false;
@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
     public float distancia, distancia2, distancia3, distancia4;
     public EnemiShoot enemigo, enemigo2, enemigo3, enemigo4;
 
+    public Transform controladorSenal;
+    public GameObject senal_izq;
+    public Transform controladorSenal2;
+    public GameObject senal_der;
+
 
     private Rigidbody2D rb;
 
@@ -36,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public bool mareado = false;
     public bool atrapado = false;
     public float tiempoMuerto = 0;
+    public bool tirarSenal = false;
 
     private Animator Animator;
 
@@ -50,8 +56,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        /*  puerto.ReadTimeout = 30;
-         puerto.Open(); */ //Descomentar cuando se conecta el arduino
+        puerto.ReadTimeout = 30;
+        puerto.Open();  //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
         villano_pos = GameObject.Find("Villain").transform; //Villano
@@ -79,33 +85,33 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        /*         try
+        try
+        {
+            if (puerto.IsOpen)
+            {
+                string dato_recibido = puerto.ReadLine();
+                if (dato_recibido.Equals("I"))
                 {
-                    if (puerto.IsOpen)
-                    {
-                        string dato_recibido = puerto.ReadLine();
-                        if (dato_recibido.Equals("I"))
-                        {
-                            izquierda = true;
-                        }
-                        else if (dato_recibido.Equals("D"))
-                        {
-                            derecha = true;
-                        }
-                        else if (dato_recibido.Equals("S"))
-                        {
-                            saltar = true;
-                        }
-                        else if (dato_recibido.Equals("A"))
-                        {
-                            matar = true;
-                        }
-                    }
+                    izquierda = true;
                 }
-                catch (System.Exception ex1)
+                else if (dato_recibido.Equals("D"))
                 {
-                    ex1 = new System.Exception();
-                } */ //Descomentar cuando se conecta el arduino
+                    derecha = true;
+                }
+                else if (dato_recibido.Equals("S"))
+                {
+                    saltar = true;
+                }
+                else if (dato_recibido.Equals("A"))
+                {
+                    matar = true;
+                }
+            }
+        }
+        catch (System.Exception ex1)
+        {
+            ex1 = new System.Exception();
+        }  //Descomentar cuando se conecta el arduino
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
@@ -219,6 +225,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (distancia < distanciaParaMatar)
                 {
+                    Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+                    Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+                    tirarSenal = true;
                     if (enemigo != null)
                     {
                         transform.localScale = new Vector3(2, 2, 2);
@@ -234,6 +243,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (distancia2 < distanciaParaMatar)
                 {
+                    tirarSenal = true;
                     if (enemigo2 != null)
                     {
                         transform.localScale = new Vector3(2, 2, 2);
@@ -249,6 +259,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (distancia3 < distanciaParaMatar)
                 {
+                    tirarSenal = true;
                     if (enemigo3 != null)
                     {
                         transform.localScale = new Vector3(2, 2, 2);
@@ -262,8 +273,10 @@ public class PlayerController : MonoBehaviour
                         vSinMasc++;
                     }
 
-                } else if (distancia4 < distanciaParaMatar)
+                }
+                else if (distancia4 < distanciaParaMatar)
                 {
+                    tirarSenal = true;
                     if (enemigo4 != null)
                     {
                         transform.localScale = new Vector3(2, 2, 2);
@@ -277,6 +290,10 @@ public class PlayerController : MonoBehaviour
                         vSinMasc++;
                     }
 
+                }
+                else
+                {
+                    tirarSenal = false;
                 }
             }
 
@@ -312,6 +329,13 @@ public class PlayerController : MonoBehaviour
         else
         {
             Animator.SetBool("mareado", false);
+        }
+
+        if (tirarSenal)
+        {
+            Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+            Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+
         }
         izquierda = false;
         derecha = false;
