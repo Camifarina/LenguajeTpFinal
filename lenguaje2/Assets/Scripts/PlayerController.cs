@@ -7,7 +7,7 @@ using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
-    public SerialPort puerto = new SerialPort("COM3", 9600);
+    // public SerialPort puerto = new SerialPort("COM3", 9600); //Descomentar cuando se conecta el arduino
     public bool izquierda = false;
     public bool derecha = false;
     public bool saltar = false;
@@ -22,25 +22,20 @@ public class PlayerController : MonoBehaviour
     private bool espadaSoundPlayed = false;
     private bool quitarMascaraSoundPlayed = false;
 
-    public Transform villano_pos; //Villano
-    public Transform villano_pos2;
+    public Transform villano_pos, villano_pos2, villano_pos3, villano_pos4; //Villano
     public float distanciaParaMatar = 5f;
-    public float distancia;
-    public float distancia2;
-    public EnemiShoot enemigo;
-    public EnemiShoot2 enemigo2;
+    public float distancia, distancia2, distancia3, distancia4;
+    public EnemiShoot enemigo, enemigo2, enemigo3, enemigo4;
 
 
     private Rigidbody2D rb;
 
     private int colisiones = 0; // Contador de colisiones.
-    private bool mareado = false;
-    private bool muerto = false;
-    private int tiempoMareado = 0;
-    private int tiempoMuerto = 0;
-    public int segMareado;
     public int vidas = 3; // Número máximo de colisiones antes de perder.
     public int vSinMasc = 0;
+    public bool mareado = false;
+    public bool atrapado = false;
+    public float tiempoMuerto = 0;
 
     private Animator Animator;
 
@@ -55,15 +50,21 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        puerto.ReadTimeout = 30;
-        puerto.Open();
+        /*  puerto.ReadTimeout = 30;
+         puerto.Open(); */ //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
         villano_pos = GameObject.Find("Villain").transform; //Villano
         enemigo = villano_pos.GetComponent<EnemiShoot>();
 
         villano_pos2 = GameObject.Find("Villain2").transform; //Villano2
-        enemigo2 = villano_pos2.GetComponent<EnemiShoot2>();
+        enemigo2 = villano_pos2.GetComponent<EnemiShoot>();
+
+        villano_pos3 = GameObject.Find("Villain3").transform;
+        enemigo3 = villano_pos3.GetComponent<EnemiShoot>();
+
+        villano_pos4 = GameObject.Find("Villain4").transform;
+        enemigo4 = villano_pos4.GetComponent<EnemiShoot>();
 
         Animator = GetComponent<Animator>();
 
@@ -78,33 +79,33 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        try
-        {
-            if (puerto.IsOpen)
-            {
-                string dato_recibido = puerto.ReadLine();
-                if (dato_recibido.Equals("I"))
+        /*         try
                 {
-                    izquierda = true;
+                    if (puerto.IsOpen)
+                    {
+                        string dato_recibido = puerto.ReadLine();
+                        if (dato_recibido.Equals("I"))
+                        {
+                            izquierda = true;
+                        }
+                        else if (dato_recibido.Equals("D"))
+                        {
+                            derecha = true;
+                        }
+                        else if (dato_recibido.Equals("S"))
+                        {
+                            saltar = true;
+                        }
+                        else if (dato_recibido.Equals("A"))
+                        {
+                            matar = true;
+                        }
+                    }
                 }
-                else if (dato_recibido.Equals("D"))
+                catch (System.Exception ex1)
                 {
-                    derecha = true;
-                }
-                else if (dato_recibido.Equals("S"))
-                {
-                    saltar = true;
-                }
-                else if (dato_recibido.Equals("A"))
-                {
-                    matar = true;
-                }
-            }
-        }
-        catch (System.Exception ex1)
-        {
-            ex1 = new System.Exception();
-        }
+                    ex1 = new System.Exception();
+                } */ //Descomentar cuando se conecta el arduino
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
@@ -155,24 +156,44 @@ public class PlayerController : MonoBehaviour
 
         distancia = Vector2.Distance(transform.position, villano_pos.position);
         distancia2 = Vector2.Distance(transform.position, villano_pos2.position);
+        distancia3 = Vector2.Distance(transform.position, villano_pos3.position);
+        distancia4 = Vector2.Distance(transform.position, villano_pos4.position);
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A) || matar)
         {
             Animator.SetBool("Mata", true);
-            if (villano_pos.position.x > this.transform.position.x || villano_pos2.position.x > this.transform.position.x)
+            if (villano_pos.position.x > this.transform.position.x ||
+            villano_pos2.position.x > this.transform.position.x ||
+            villano_pos3.position.x > this.transform.position.x ||
+            villano_pos4.position.x > this.transform.position.x)
             {
                 if (distancia < distanciaParaMatar)
                 {
                     if (enemigo != null)
                     {
-                        enemigo.atacado = 1;
+                        enemigo.estaMuerto = true;
                     }
                 }
                 if (distancia2 < distanciaParaMatar)
                 {
                     if (enemigo2 != null)
                     {
-                        enemigo2.atacado2 = 1;
+                        enemigo2.estaMuerto = true;
                     }
+                }
+                if (distancia3 < distanciaParaMatar)
+                {
+                    if (enemigo3 != null)
+                    {
+                        enemigo3.estaMuerto = true;
+                    }
+                }
+                if (distancia4 < distanciaParaMatar)
+                {
+                    if (enemigo4 != null)
+                    {
+                        enemigo4.estaMuerto = true;
+                    }
+
                 }
             }
             if (!espadaSoundPlayed && espada != null)
@@ -191,7 +212,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
-            if (villano_pos.position.x > this.transform.position.x || villano_pos2.position.x > this.transform.position.x)
+            if (villano_pos.position.x > this.transform.position.x ||
+             villano_pos2.position.x > this.transform.position.x ||
+              villano_pos3.position.x > this.transform.position.x ||
+              villano_pos4.position.x > this.transform.position.x)
             {
                 if (distancia < distanciaParaMatar)
                 {
@@ -199,7 +223,7 @@ public class PlayerController : MonoBehaviour
                     {
                         transform.localScale = new Vector3(2, 2, 2);
                         Animator.SetBool("sacamascara", true);
-                        enemigo.sinmascara = 1;
+                        enemigo.sinMascara = true;
                     }
                     if (!quitarMascaraSoundPlayed && quitar_mascara != null)
                     {
@@ -208,13 +232,13 @@ public class PlayerController : MonoBehaviour
                         vSinMasc++;
                     }
                 }
-                if (distancia2 < distanciaParaMatar)
+                else if (distancia2 < distanciaParaMatar)
                 {
                     if (enemigo2 != null)
                     {
                         transform.localScale = new Vector3(2, 2, 2);
                         Animator.SetBool("sacamascara", true);
-                        enemigo2.sinmascara2 = 1;
+                        enemigo2.sinMascara = true;
                     }
                     if (!quitarMascaraSoundPlayed && quitar_mascara != null)
                     {
@@ -223,15 +247,45 @@ public class PlayerController : MonoBehaviour
                         vSinMasc++;
                     }
                 }
+                else if (distancia3 < distanciaParaMatar)
+                {
+                    if (enemigo3 != null)
+                    {
+                        transform.localScale = new Vector3(2, 2, 2);
+                        Animator.SetBool("sacamascara", true);
+                        enemigo3.sinMascara = true;
+                    }
+                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
+                    {
+                        audioPasos.PlayOneShot(quitar_mascara);
+                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
+                        vSinMasc++;
+                    }
 
+                } else if (distancia4 < distanciaParaMatar)
+                {
+                    if (enemigo4 != null)
+                    {
+                        transform.localScale = new Vector3(2, 2, 2);
+                        Animator.SetBool("sacamascara", true);
+                        enemigo4.sinMascara = true;
+                    }
+                    if (!quitarMascaraSoundPlayed && quitar_mascara != null)
+                    {
+                        audioPasos.PlayOneShot(quitar_mascara);
+                        quitarMascaraSoundPlayed = true; // Marca el sonido como reproducido
+                        vSinMasc++;
+                    }
+
+                }
             }
+
         }
         else
         {
             Animator.SetBool("sacamascara", false);
             quitarMascaraSoundPlayed = false; // Restablece la bandera cuando se suelta alguna de las teclas
         }
-
         Debug.Log(isGrounded);
 
         if (vSinMasc >= 8)
@@ -239,31 +293,30 @@ public class PlayerController : MonoBehaviour
             Ganar();
         }
 
-        if (mareado)
+        if (atrapado)
         {
-            tiempoMareado++;
-            if (tiempoMareado >= segMareado * 60) // Aquí, 120 representa la cantidad de fotogramas aproximadamente durante 2 segundos.
-            {
-                mareado = false; // Desactiva el estado de "mareado" después de 2 segundos.
-                Animator.SetBool("mareado", false);
-                tiempoMareado = 0; // Restablece el temporizador.
-            }
-        }
-        if (muerto)
-        {
-            tiempoMuerto++;
+            rb.velocity = new Vector2(0, rb.velocity.y);
             Animator.SetBool("muerto", true);
-            if (tiempoMuerto >= 10 * 60)
+            tiempoMuerto += Time.deltaTime;
+            if (tiempoMuerto >= 2)
             {
+                //Si el contador alcanza el máximo, llama a la función de muerte.
                 Die();
-                Animator.SetBool("muerto", false);
             }
         }
-
-    izquierda = false;
-    derecha = false;
-    matar = false;
-    saltar = false;
+        if (mareado && !atrapado)
+        {
+            Animator.SetBool("mareado", true);
+            mareado = false;
+        }
+        else
+        {
+            Animator.SetBool("mareado", false);
+        }
+        izquierda = false;
+        derecha = false;
+        matar = false;
+        saltar = false;
     }
 
     private void TryPlayFootstepSound()
@@ -303,13 +356,9 @@ public class PlayerController : MonoBehaviour
         {
             colisiones++; // Incrementa el contador de colisiones.
             mareado = true;
-            Animator.SetBool("mareado", true);
-
             if (colisiones >= vidas)
             {
-                //Si el contador alcanza el máximo, llama a la función de muerte.
-                //Die();
-                muerto = true;
+                atrapado = true;
             }
         }
 
