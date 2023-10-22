@@ -7,7 +7,7 @@ using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
-    public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
+    //public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
     public bool izquierda = false;
     public bool derecha = false;
     public bool saltar = false;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool quitarMascaraSoundPlayed = false;
 
 
-    private Transform[] villano_pos = new Transform[8];
+    private Transform[] villano_pos = new Transform[8]; //Enemigos
     public float distanciaParaMatar = 5f;
     private float[] distancia = new float[8];
     private EnemiShoot[] enemigo = new EnemiShoot[8];
@@ -52,13 +52,12 @@ public class PlayerController : MonoBehaviour
     // private AudioSource audioEspada;
     // private AudioSource audioMascara;
 
-
     public bool isGrounded;
 
     private void Start()
     {
-        puerto.ReadTimeout = 30;
-        puerto.Open();  //Descomentar cuando se conecta el arduino
+        // puerto.ReadTimeout = 30;
+        // puerto.Open();  //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
         villano_pos[0] = GameObject.Find("Villain").transform;
@@ -88,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        try
+        /* try
         {
             if (puerto.IsOpen)
             {
@@ -114,7 +113,7 @@ public class PlayerController : MonoBehaviour
         catch (System.Exception ex1)
         {
             ex1 = new System.Exception();
-        }  //Descomentar cuando se conecta el arduino
+        }  //Descomentar cuando se conecta el arduino */
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
@@ -176,7 +175,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (villano_pos[i].position.x > this.transform.position.x)
                 {
-                    if (distancia[i] < distanciaParaMatar)
+                    if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
                     {
                         if (enemigo[i] != null)
                         {
@@ -204,25 +203,19 @@ public class PlayerController : MonoBehaviour
             {
                 if (villano_pos[i].position.x > this.transform.position.x)
                 {
-                    if (distancia[i] < distanciaParaMatar)
+                    if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
                     {
                         if (enemigo[i] != null)
                         {
                             transform.localScale = new Vector3(2, 2, 2);
                             Animator.SetBool("sacamascara", true);
                             enemigo[i].sinMascara = true;
-                            eSinMascara = true;
-
                         }
                         if (!quitarMascaraSoundPlayed && quitar_mascara != null)
                         {
                             audioPasos.PlayOneShot(quitar_mascara);
                             quitarMascaraSoundPlayed = true;
                             eSinMascara = true;
-                        }
-                        else
-                        {
-                            eSinMascara = false;
                         }
                     }
                 }
@@ -236,6 +229,7 @@ public class PlayerController : MonoBehaviour
         if (eSinMascara == true)
         {
             vSinMasc = vSinMasc + 1;
+            eSinMascara = false;
         }
 
         //Debug.Log(isGrounded);
@@ -267,12 +261,15 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("mareado", false);
         }
 
-        // if (tirarSenal)
-        // {
-        //     Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
-        //     Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+        for (int i = 0; i < 8; i++)
+        {
+            if (distancia[i] < distanciaParaMatar)
+            {
+                Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+                Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+            }
+        }
 
-        // }
         izquierda = false;
         derecha = false;
         matar = false;
