@@ -1,0 +1,763 @@
+fileFormatVersion: 2
+guid: f74a9cf493b22dd44a9fda3157f5bb4f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_0
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 44
+        width: 328
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16978070d0ab8bd4f91eaa1cb46d9b80
+      internalID: 273928888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_1
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 44
+        width: 328
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3b78e4892fadda4b82c2bd0eca26152
+      internalID: 1939447270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_2
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 31
+        width: 457
+        height: 649
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ee8fe386d83c02418c95950421f2263
+      internalID: -1275656254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_3
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 31
+        width: 444
+        height: 631
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb1baacec19b0004c908fca95b8975fd
+      internalID: -1621220445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_4
+      rect:
+        serializedVersion: 2
+        x: 2235
+        y: 40
+        width: 328
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac94dc380d2a7ba439f8d5a59a4af429
+      internalID: -1771545716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_5
+      rect:
+        serializedVersion: 2
+        x: 2638
+        y: 44
+        width: 324
+        height: 667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694ea81bdd8852f498b562ba0edd1492
+      internalID: -2079512714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_6
+      rect:
+        serializedVersion: 2
+        x: 3037
+        y: 44
+        width: 324
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b744eb310aa03140994c403c069b995
+      internalID: 184215840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_7
+      rect:
+        serializedVersion: 2
+        x: 3662
+        y: 44
+        width: 337
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fba14bc2aecff0440a32ca5498a148a0
+      internalID: -1237464856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_8
+      rect:
+        serializedVersion: 2
+        x: 4035
+        y: 658
+        width: 8
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7de4f5e294a9144b8cc5a378b02b4c7
+      internalID: -1895563498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_9
+      rect:
+        serializedVersion: 2
+        x: 4061
+        y: 44
+        width: 346
+        height: 649
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19f21a21e75a2124388755cd4ebdadf2
+      internalID: -92845936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_10
+      rect:
+        serializedVersion: 2
+        x: 4478
+        y: 44
+        width: 337
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f962fc80374c21547b5024e0b9f12f00
+      internalID: 993340656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_11
+      rect:
+        serializedVersion: 2
+        x: 4890
+        y: 44
+        width: 346
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 135296d534c0e9e4b9d7119b6655a458
+      internalID: -627472129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_12
+      rect:
+        serializedVersion: 2
+        x: 5475
+        y: 31
+        width: 337
+        height: 653
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca51d8c0e1556aa4aadccff48ed6e0aa
+      internalID: 157943480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_13
+      rect:
+        serializedVersion: 2
+        x: 5963
+        y: 31
+        width: 342
+        height: 671
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e6f8fad50a44e4d90e689e5bac29c1
+      internalID: -123508148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_14
+      rect:
+        serializedVersion: 2
+        x: 6371
+        y: 31
+        width: 381
+        height: 689
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb802ff989656754094155611310cc97
+      internalID: -2083045195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_15
+      rect:
+        serializedVersion: 2
+        x: 6814
+        y: 31
+        width: 501
+        height: 649
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e577b7161f2889740bdaab38534532df
+      internalID: 1627477770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_16
+      rect:
+        serializedVersion: 2
+        x: 7440
+        y: 22
+        width: 350
+        height: 667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cf297a88e59515448e2ca6d6bfca603
+      internalID: -1571885654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_17
+      rect:
+        serializedVersion: 2
+        x: 7963
+        y: 22
+        width: 350
+        height: 671
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fba06b08ad26408448c8c1d0a8f3f9dd
+      internalID: -288357737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_18
+      rect:
+        serializedVersion: 2
+        x: 8588
+        y: 289
+        width: 195
+        height: 378
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be52794b26d4df847956d6fc06a3626b
+      internalID: 2043402694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_19
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 653
+        width: 5
+        height: 5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f172c7b0f8d1c549b7fd95f3d1b82e2
+      internalID: -1826514916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_20
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 649
+        width: 9
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e3717f33039244bb712f1a43038aac
+      internalID: -899693660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_21
+      rect:
+        serializedVersion: 2
+        x: 2611
+        y: 649
+        width: 5
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4af5066ee3ac98469508b17d5e4d0d5
+      internalID: -1034731486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_22
+      rect:
+        serializedVersion: 2
+        x: 3010
+        y: 649
+        width: 9
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dd9dc0d219e2694c8f37730ac5c701e
+      internalID: 1930373471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_23
+      rect:
+        serializedVersion: 2
+        x: 3636
+        y: 649
+        width: 4
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29e32c6b5bb45044e8d6ec0b45c6cfad
+      internalID: -420530835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_24
+      rect:
+        serializedVersion: 2
+        x: 4451
+        y: 649
+        width: 9
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53724dd2f9f2cf645b7aa0a17537cdcf
+      internalID: -310162736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_25
+      rect:
+        serializedVersion: 2
+        x: 4864
+        y: 649
+        width: 9
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9934ea24e70f5514aadff83ee283c159
+      internalID: 1758645375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_26
+      rect:
+        serializedVersion: 2
+        x: 2208
+        y: 644
+        width: 9
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dc9559ef1d7d4c4f933adeb35c4a892
+      internalID: 1175997062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_Ciudadana (1)_27
+      rect:
+        serializedVersion: 2
+        x: 8379
+        y: 0
+        width: 670
+        height: 347
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6237c7b47ae1c04dbbaed22d9cf8a08
+      internalID: 1541846723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Sprites_Ciudadana (1)_23: -420530835
+      Sprites_Ciudadana (1)_10: 993340656
+      Sprites_Ciudadana (1)_6: 184215840
+      Sprites_Ciudadana (1)_15: 1627477770
+      Sprites_Ciudadana (1)_26: 1175997062
+      Sprites_Ciudadana (1)_13: -123508148
+      Sprites_Ciudadana (1)_21: -1034731486
+      Sprites_Ciudadana (1)_22: 1930373471
+      Sprites_Ciudadana (1)_17: -288357737
+      Sprites_Ciudadana (1)_20: -899693660
+      Sprites_Ciudadana (1)_11: -627472129
+      Sprites_Ciudadana (1)_16: -1571885654
+      Sprites_Ciudadana (1)_27: 1541846723
+      Sprites_Ciudadana (1)_3: -1621220445
+      Sprites_Ciudadana (1)_2: -1275656254
+      Sprites_Ciudadana (1)_4: -1771545716
+      Sprites_Ciudadana (1)_5: -2079512714
+      Sprites_Ciudadana (1)_7: -1237464856
+      Sprites_Ciudadana (1)_12: 157943480
+      Sprites_Ciudadana (1)_8: -1895563498
+      Sprites_Ciudadana (1)_0: 273928888
+      Sprites_Ciudadana (1)_1: 1939447270
+      Sprites_Ciudadana (1)_18: 2043402694
+      Sprites_Ciudadana (1)_25: 1758645375
+      Sprites_Ciudadana (1)_14: -2083045195
+      Sprites_Ciudadana (1)_24: -310162736
+      Sprites_Ciudadana (1)_9: -92845936
+      Sprites_Ciudadana (1)_19: -1826514916
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
