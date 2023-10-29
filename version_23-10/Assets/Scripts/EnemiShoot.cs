@@ -69,8 +69,8 @@ public class EnemiShoot : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
-            SoundManager.instance.PlaySound("efectoMareado");
-            
+            //SoundManager.instance.PlaySound("efectoMareado");
+            Animator.SetInteger("emociones", Mathf.RoundToInt(Random.Range(1, 4)));
         }
     }
 }

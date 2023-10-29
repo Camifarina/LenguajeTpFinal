@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public bool matar = false;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+    private int cantidadVillanos = 7;
 
     public AudioClip pasosSound; // Sonido de pasos.
     public AudioClip salto; // Sonido de salto.
@@ -23,10 +24,10 @@ public class PlayerController : MonoBehaviour
     private bool quitarMascaraSoundPlayed = false;
 
 
-    private Transform[] villano_pos = new Transform[8]; //Enemigos
+    private Transform[] villano_pos = new Transform[7]; //Enemigos
     public float distanciaParaMatar = 5f;
-    private float[] distancia = new float[8];
-    private EnemiShoot[] enemigo = new EnemiShoot[8];
+    private float[] distancia = new float[7];
+    private EnemiShoot[] enemigo = new EnemiShoot[7];
     private bool eSinMascara = false;
     public Transform controladorSenal;
     public GameObject senal_izq;
@@ -66,9 +67,8 @@ public class PlayerController : MonoBehaviour
         villano_pos[3] = GameObject.Find("Villain4").transform;
         villano_pos[4] = GameObject.Find("Villain5").transform;
         villano_pos[5] = GameObject.Find("Villain6").transform;
-        villano_pos[6] = GameObject.Find("Villain7").transform;
-        villano_pos[7] = GameObject.Find("Villain8").transform;
-        for (int i = 0; i < 8; i++)
+        villano_pos[6] = GameObject.Find("malo").transform;
+        for (int i = 0; i < cantidadVillanos; i++)
         {
             enemigo[i] = villano_pos[i].GetComponent<EnemiShoot>();
         }
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("Salta", false);
         }
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < cantidadVillanos; i++)
         {
             distancia[i] = Vector2.Distance(transform.position, villano_pos[i].position);
         }
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
         {
             Animator.SetBool("Mata", true);
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < cantidadVillanos; i++)
             {
                 if (villano_pos[i].position.x > this.transform.position.x)
                 {
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < cantidadVillanos; i++)
             {
                 if (villano_pos[i].position.x > this.transform.position.x)
                 {
@@ -235,7 +235,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(isGrounded);
         Debug.Log("villanos liberados: " + vSinMasc);
 
-        if (vSinMasc >= 8)
+        if (vSinMasc >= cantidadVillanos)
         {
             Ganar();
         }
@@ -261,7 +261,7 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("mareado", false);
         }
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < cantidadVillanos; i++)
         {
             if (distancia[i] < distanciaParaMatar)
             {
