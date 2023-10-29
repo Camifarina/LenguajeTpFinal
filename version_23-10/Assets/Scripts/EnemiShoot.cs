@@ -50,11 +50,12 @@ public class EnemiShoot : MonoBehaviour
                 Instantiate(bala, controladorDisparo.position, Quaternion.FromToRotation(Vector3.left, direccionHaciaJugador));
                 tiempo = 0;
             }
-            else
-            {
-                Animator.SetBool("ataca", false);
-            }
         }
+        else
+        {
+            Animator.SetBool("ataca",false);
+        }
+        
         //Debug.Log(tiempo);
         if (estaMuerto)
         {

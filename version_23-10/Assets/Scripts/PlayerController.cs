@@ -45,7 +45,9 @@ public class PlayerController : MonoBehaviour
     public bool mareado = false;
     public bool atrapado = false;
     public float tiempoMuerto = 0;
+    public float time = 0;
     public bool tirarSenal = false;
+    public bool conFlor = false;
 
     private Animator Animator;
 
@@ -240,13 +242,23 @@ public class PlayerController : MonoBehaviour
             eMuerto = false;
         }
 
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.Q))
+        {
+            conFlor = true;
+        }
+
         //Debug.Log(isGrounded);
         Debug.Log("villanos liberados: " + vSinMasc);
         Debug.Log("villanos muertos: " + vMuertos);
 
         if (vSinMasc >= cantidadVillanos)
         {
-            Ganar();
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            time += Time.deltaTime;
+            if (time >= 3)
+            {
+                Ganar();
+            }
         }
 
         if (atrapado)
@@ -286,7 +298,21 @@ public class PlayerController : MonoBehaviour
 
         if ((enemigo[6].sinMascara == true || enemigo[6].estaMuerto == true) && vMuertos <= cantidadVillanos && vMuertos > 0)
         {
-            Die();
+            tiempoMuerto += Time.deltaTime;
+            if (tiempoMuerto >= 3)
+            {
+                Die();
+            }
+        }
+
+        if (conFlor)
+        {
+            time += Time.deltaTime;
+            if (time >= 10)
+            {
+                conFlor = false;
+                time = 0;
+            }
         }
     }
 
@@ -323,7 +349,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D colision)
     {
-        if (colision.gameObject.CompareTag("Bala"))
+        if (colision.gameObject.CompareTag("Bala") && !conFlor)
         {
             colisiones++; // Incrementa el contador de colisiones.
             mareado = true;
