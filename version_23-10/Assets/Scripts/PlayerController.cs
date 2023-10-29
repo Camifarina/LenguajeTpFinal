@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private float[] distancia = new float[7];
     private EnemiShoot[] enemigo = new EnemiShoot[7];
     private bool eSinMascara = false;
+    private bool eMuerto = false;
     public Transform controladorSenal;
     public GameObject senal_izq;
     public Transform controladorSenal2;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private int colisiones = 0; // Contador de colisiones.
     public int vidas = 3; // Número máximo de colisiones antes de perder.
     public int vSinMasc = 0;
+    private int vMuertos = 0;
     public bool mareado = false;
     public bool atrapado = false;
     public float tiempoMuerto = 0;
@@ -180,6 +182,7 @@ public class PlayerController : MonoBehaviour
                         if (enemigo[i] != null)
                         {
                             enemigo[i].estaMuerto = true;
+                            eMuerto = true;
                         }
                     }
                 }
@@ -231,9 +234,15 @@ public class PlayerController : MonoBehaviour
             vSinMasc = vSinMasc + 1;
             eSinMascara = false;
         }
+        if (eMuerto == true)
+        {
+            vMuertos = vMuertos + 1;
+            eMuerto = false;
+        }
 
         //Debug.Log(isGrounded);
         Debug.Log("villanos liberados: " + vSinMasc);
+        Debug.Log("villanos muertos: " + vMuertos);
 
         if (vSinMasc >= cantidadVillanos)
         {
@@ -274,6 +283,11 @@ public class PlayerController : MonoBehaviour
         derecha = false;
         matar = false;
         saltar = false;
+
+        if ((enemigo[6].sinMascara == true || enemigo[6].estaMuerto == true) && vMuertos <= cantidadVillanos && vMuertos > 0)
+        {
+            Die();
+        }
     }
 
     private void TryPlayFootstepSound()
