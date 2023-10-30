@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 899f944f74dc1804cb102cb2e73c2583
+guid: 0b70386acc8861b4288ddcb15426a54d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hud_0
+      name: hud0_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1727
-        height: 3450
+        width: 534
+        height: 1104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7f2302ee6c42d44880651a1f81af3f9
-      internalID: 2092873989
+      spriteID: 574180d19baf6a549b6ffd32864ba214
+      internalID: -1014432843
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hud_1
+      name: hud0_3
       rect:
         serializedVersion: 2
-        x: 13395
+        x: 734
         y: 0
-        width: 1740
-        height: 3450
+        width: 647
+        height: 1104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +164,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 612f829b9ca547d40a5656ca33cf64b2
-      internalID: -276943620
+      spriteID: 2608d0922536b484c84fe0230c8a1747
+      internalID: -902440204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hud0_4
+      rect:
+        serializedVersion: 2
+        x: 3441
+        y: 0
+        width: 672
+        height: 1104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56ff141492a5fa41a2db5757a8d8fb4
+      internalID: 383104497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hud0_6
+      rect:
+        serializedVersion: 2
+        x: 4302
+        y: 0
+        width: 541
+        height: 1104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108a47c9a6e8b7b4caac1b6d1b97628b
+      internalID: -305921894
       vertices: []
       indices: 
       edges: []
@@ -181,8 +223,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      hud_0: 2092873989
-      hud_1: -276943620
+      hud0_2: 739222886
+      hud0_7: 1356672946
+      hud0_4: 383104497
+      hud0_6: -305921894
+      hud0_1: -1014432843
+      hud0_3: -902440204
+      hud0_5: -351817852
+      hud0_0: -502378867
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

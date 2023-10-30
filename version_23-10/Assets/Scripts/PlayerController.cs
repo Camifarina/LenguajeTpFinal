@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour
     public GameObject senal_izq;
     public Transform controladorSenal2;
     public GameObject senal_der;
+    public GameObject recuadro_golpeado; //recuadros según lo que pasa en el juego
+    public GameObject recuadro_liberoCiudadano;
+    public GameObject recuadro_matoCiudadano;
+    public Transform controladorRecuadro; //controlador de los recuadros
+
 
 
     private Rigidbody2D rb;
@@ -46,8 +51,11 @@ public class PlayerController : MonoBehaviour
     public bool atrapado = false;
     public float tiempoMuerto = 0;
     public float time = 0;
-    public bool tirarSenal = false;
-    public bool conFlor = false;
+    public bool tirarSenal = false; //booleano señales para liberar
+    public bool conFlor = false; //booleano flor
+    public bool golpeado = false; //booleanos recuadros
+    public bool liberoCiudadano = false;
+    public bool matoCiudadano = false;
 
     private Animator Animator;
 
@@ -184,6 +192,7 @@ public class PlayerController : MonoBehaviour
                         if (enemigo[i] != null)
                         {
                             enemigo[i].estaMuerto = true;
+                            matoCiudadano=true;
                             eMuerto = true;
                         }
                     }
@@ -215,6 +224,7 @@ public class PlayerController : MonoBehaviour
                             transform.localScale = new Vector3(2, 2, 2);
                             Animator.SetBool("sacamascara", true);
                             enemigo[i].sinMascara = true;
+                            liberoCiudadano=true;
                         }
                         if (!quitarMascaraSoundPlayed && quitar_mascara != null)
                         {
@@ -284,11 +294,27 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < cantidadVillanos; i++)
         {
-            if (distancia[i] < distanciaParaMatar)
+            if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
             {
                 Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
                 Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
             }
+        }
+
+        if (golpeado)
+        {
+            Instantiate(recuadro_golpeado, controladorRecuadro.position, Quaternion.identity);
+            golpeado = false;
+        }
+        if (liberoCiudadano)
+        {
+            Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
+            liberoCiudadano = false;
+        }
+        if (matoCiudadano)
+        {
+            Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
+            matoCiudadano = false;
         }
 
         izquierda = false;
@@ -352,6 +378,7 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Bala") && !conFlor)
         {
             colisiones++; // Incrementa el contador de colisiones.
+            golpeado = true;
             mareado = true;
             if (colisiones >= vidas)
             {

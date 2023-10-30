@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 899f944f74dc1804cb102cb2e73c2583
+guid: c0242fbc1ac96de4b9639183dbdb5a92
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hud_0
+      name: probando_recuadro_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1727
-        height: 3450
+        width: 1123
+        height: 590
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7f2302ee6c42d44880651a1f81af3f9
-      internalID: 2092873989
+      spriteID: 36a3ec855324f0f46bf9c7dc9bf6d76f
+      internalID: 695004725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hud_1
+      name: probando_recuadro_1
       rect:
         serializedVersion: 2
-        x: 13395
+        x: 1244
         y: 0
-        width: 1740
-        height: 3450
+        width: 1123
+        height: 590
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,8 +164,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 612f829b9ca547d40a5656ca33cf64b2
-      internalID: -276943620
+      spriteID: fafcd5100faab1140985eb514adaab80
+      internalID: -1268741345
       vertices: []
       indices: 
       edges: []
@@ -181,8 +181,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      hud_0: 2092873989
-      hud_1: -276943620
+      probando_recuadro_0: 695004725
+      probando_recuadro_1: -1268741345
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
