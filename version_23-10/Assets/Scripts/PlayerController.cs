@@ -24,12 +24,15 @@ public class PlayerController : MonoBehaviour
     private bool quitarMascaraSoundPlayed = false;
 
 
+private Transform mascara_suelo;
+private Mascara_suelo mascara_s;
+
     private Transform[] villano_pos = new Transform[7]; //Enemigos
     public float distanciaParaMatar = 5f;
     private float[] distancia = new float[7];
     private EnemiShoot[] enemigo = new EnemiShoot[7];
-    private bool eSinMascara = false;
-    private bool eMuerto = false;
+    public bool eSinMascara = false;
+    public bool eMuerto = false;
     public Transform controladorSenal;
     public GameObject senal_izq;
     public Transform controladorSenal2;
@@ -53,9 +56,7 @@ public class PlayerController : MonoBehaviour
     public float time = 0;
     public bool tirarSenal = false; //booleano señales para liberar
     public bool conFlor = false; //booleano flor
-    public bool golpeado = false; //booleanos recuadros
-    public bool liberoCiudadano = false;
-    public bool matoCiudadano = false;
+
 
     private Animator Animator;
 
@@ -84,6 +85,9 @@ public class PlayerController : MonoBehaviour
         {
             enemigo[i] = villano_pos[i].GetComponent<EnemiShoot>();
         }
+
+        mascara_suelo = GameObject.Find("mascara_suelo").transform;
+        mascara_s = mascara_suelo.GetComponent<Mascara_suelo>();
 
 
         Animator = GetComponent<Animator>();
@@ -192,7 +196,6 @@ public class PlayerController : MonoBehaviour
                         if (enemigo[i] != null)
                         {
                             enemigo[i].estaMuerto = true;
-                            matoCiudadano=true;
                             eMuerto = true;
                         }
                     }
@@ -224,7 +227,6 @@ public class PlayerController : MonoBehaviour
                             transform.localScale = new Vector3(2, 2, 2);
                             Animator.SetBool("sacamascara", true);
                             enemigo[i].sinMascara = true;
-                            liberoCiudadano=true;
                         }
                         if (!quitarMascaraSoundPlayed && quitar_mascara != null)
                         {
@@ -243,11 +245,13 @@ public class PlayerController : MonoBehaviour
         }
         if (eSinMascara == true)
         {
+            Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
             vSinMasc = vSinMasc + 1;
             eSinMascara = false;
         }
         if (eMuerto == true)
         {
+            Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
             vMuertos = vMuertos + 1;
             eMuerto = false;
         }
@@ -284,6 +288,7 @@ public class PlayerController : MonoBehaviour
         }
         if (mareado && !atrapado)
         {
+            Instantiate(recuadro_golpeado, controladorRecuadro.position, Quaternion.identity);
             Animator.SetBool("mareado", true);
             mareado = false;
         }
@@ -299,22 +304,6 @@ public class PlayerController : MonoBehaviour
                 Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
                 Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
             }
-        }
-
-        if (golpeado)
-        {
-            Instantiate(recuadro_golpeado, controladorRecuadro.position, Quaternion.identity);
-            golpeado = false;
-        }
-        if (liberoCiudadano)
-        {
-            Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
-            liberoCiudadano = false;
-        }
-        if (matoCiudadano)
-        {
-            Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
-            matoCiudadano = false;
         }
 
         izquierda = false;
@@ -378,7 +367,6 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Bala") && !conFlor)
         {
             colisiones++; // Incrementa el contador de colisiones.
-            golpeado = true;
             mareado = true;
             if (colisiones >= vidas)
             {
@@ -395,6 +383,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             //audioSalto.Play();
+        }
+
+        if(colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
+        {
+            mascara_s.toco_mascara = true;
+            colisiones++;
+            mareado = true;
+            if (colisiones >= vidas)
+            {
+                atrapado = true;
+            }
         }
     }
 

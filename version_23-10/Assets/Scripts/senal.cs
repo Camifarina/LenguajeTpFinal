@@ -16,9 +16,6 @@ public class senal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (raulcito.tirarSenal == false)
-        {
             Destroy(gameObject);
-        }
     }
 }

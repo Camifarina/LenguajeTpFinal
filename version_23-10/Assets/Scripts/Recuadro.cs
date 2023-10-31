@@ -18,7 +18,7 @@ public class Recuadro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (raulcito.golpeado == false)
+        if (raulcito.mareado == false)
         {
             time += Time.deltaTime;
             if (time >= 1)
@@ -27,7 +27,7 @@ public class Recuadro : MonoBehaviour
                 time = 0;
             }
         }
-        if (raulcito.liberoCiudadano == false)
+        if (raulcito.eSinMascara == false)
         {
             time += Time.deltaTime;
             if (time >= 1)
@@ -36,7 +36,7 @@ public class Recuadro : MonoBehaviour
                 time = 0;
             }
         }
-        if (raulcito.matoCiudadano == false)
+        if (raulcito.eMuerto == false)
         {
             time += Time.deltaTime;
             if (time >= 1)

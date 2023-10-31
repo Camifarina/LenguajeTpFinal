@@ -9,6 +9,7 @@ TagManager:
   - Villain
   - senal
   - recuadro_golpeado
+  - mascara_suelo
   layers:
   - Default
   - TransparentFX
