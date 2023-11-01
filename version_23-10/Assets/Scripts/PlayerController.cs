@@ -24,8 +24,12 @@ public class PlayerController : MonoBehaviour
     private bool quitarMascaraSoundPlayed = false;
 
 
-private Transform mascara_suelo;
-private Mascara_suelo mascara_s;
+    private Transform mascara_suelo;
+    private Mascara_suelo mascara_s;
+
+    private Transform flor_pos; //Flor
+    private Flor flor = new Flor();
+    private float distanciaFlor = new float();
 
     private Transform[] villano_pos = new Transform[7]; //Enemigos
     public float distanciaParaMatar = 5f;
@@ -88,6 +92,9 @@ private Mascara_suelo mascara_s;
 
         mascara_suelo = GameObject.Find("mascara_suelo").transform;
         mascara_s = mascara_suelo.GetComponent<Mascara_suelo>();
+
+        flor_pos = GameObject.Find("Flor").transform;
+        flor = flor_pos.GetComponent<Flor>();
 
 
         Animator = GetComponent<Animator>();
@@ -183,6 +190,8 @@ private Mascara_suelo mascara_s;
             distancia[i] = Vector2.Distance(transform.position, villano_pos[i].position);
         }
 
+        distanciaFlor = Vector2.Distance(transform.position, flor_pos.position); //DISTANCIA FLOR
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A) || matar)
         {
             Animator.SetBool("Mata", true);
@@ -237,6 +246,15 @@ private Mascara_suelo mascara_s;
                     }
                 }
             }
+            if (flor_pos.position.x > this.transform.position.x)
+            {
+                if (distanciaFlor < distanciaParaMatar)
+                {
+                    conFlor = true;
+                    Animator.SetBool("sacamascara", true);
+                    flor.florInactiva = true;
+                }
+            }
         }
         else
         {
@@ -256,9 +274,11 @@ private Mascara_suelo mascara_s;
             eMuerto = false;
         }
 
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.Q))
+
+        if (distanciaFlor < distanciaParaMatar)
         {
-            conFlor = true;
+            Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+            Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
         }
 
         //Debug.Log(isGrounded);
@@ -323,6 +343,7 @@ private Mascara_suelo mascara_s;
         if (conFlor)
         {
             time += Time.deltaTime;
+            flor.florInactiva = true;
             if (time >= 10)
             {
                 conFlor = false;
@@ -385,7 +406,7 @@ private Mascara_suelo mascara_s;
             //audioSalto.Play();
         }
 
-        if(colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
+        if (colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
         {
             mascara_s.toco_mascara = true;
             colisiones++;
@@ -394,6 +415,10 @@ private Mascara_suelo mascara_s;
             {
                 atrapado = true;
             }
+        }
+        if (colision.gameObject.CompareTag("Flor"))
+        {
+            flor.florDesactivada = true;
         }
     }
 

@@ -10,6 +10,7 @@ TagManager:
   - senal
   - recuadro_golpeado
   - mascara_suelo
+  - Flor
   layers:
   - Default
   - TransparentFX
