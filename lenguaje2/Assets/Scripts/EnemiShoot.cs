@@ -13,6 +13,9 @@ public class EnemiShoot : MonoBehaviour
 
     public Transform controladorDisparo;
     public GameObject bala;
+    public GameObject sonidoEnojado;
+    public GameObject sonidoTriste;
+    public GameObject sonidoFeliz;
     private float tiempo;
     public bool estaMuerto = false;
     public bool sinMascara;
@@ -20,6 +23,8 @@ public class EnemiShoot : MonoBehaviour
     private BoxCollider2D villainCollider;
     private Rigidbody2D rb;
     private Animator Animator;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +63,7 @@ public class EnemiShoot : MonoBehaviour
         //Debug.Log(tiempo);
         if (estaMuerto)
         {
+            //Instantiate(sonidoVillanoMuerto);
             villainCollider.enabled = false;
             rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f; // Desactivar la gravedad en 2D
@@ -69,8 +75,20 @@ public class EnemiShoot : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
-            SoundManager.instance.PlaySound("efectoMareado");
+            //SoundManager.instance.PlaySound("efectoMareado");
             Animator.SetInteger("emociones", Mathf.RoundToInt(Random.Range(1, 3)));
+        }
+        if (Animator.SetInteger("emociones", 1))
+        {
+            Instantiate(sonidoEnojado);
+        }
+        if (Animator.SetInteger("emociones", 2))
+        {
+            Instantiate(sonidoFeliz);
+        }
+        if (Animator.SetInteger("emociones", 3))
+        {
+            Instantiate(sonidoTriste);
         }
     }
 }

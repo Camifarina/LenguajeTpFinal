@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO.Ports;
+//using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,14 +15,6 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private int cantidadVillanos = 7;
-
-    public AudioClip pasosSound; // Sonido de pasos.
-    public AudioClip salto; // Sonido de salto.
-    public AudioClip espada; // Sonido de espada.
-    public AudioClip quitar_mascara; // Sonido de cuando saca las mascaras.
-    private bool espadaSoundPlayed = false;
-    private bool quitarMascaraSoundPlayed = false;
-
 
     private Transform mascara_suelo;
     private Mascara_suelo mascara_s;
@@ -61,16 +53,29 @@ public class PlayerController : MonoBehaviour
     public bool tirarSenal = false; //booleano señales para liberar
     public bool conFlor = false; //booleano flor
 
-
     private Animator Animator;
-
     private bool isWalking = false; // Variable para verificar si el personaje está caminando.
-    private AudioSource audioPasos; // Referencia al AudioSource para el sonido de pasos.
-    // private AudioSource audioSalto;
-    // private AudioSource audioEspada;
-    // private AudioSource audioMascara;
-
     public bool isGrounded;
+
+    /* --- SONIDOS --- */
+    public AudioClip pasosSound; // Sonido de pasos.
+    public AudioClip salto; // Sonido de salto.
+    public AudioClip espada; // Sonido de espada.
+    public AudioClip quitar_mascara; // Sonido de cuando saca las mascaras.
+    public AudioClip raulGolpeado; 
+    private bool espadaSoundPlayed = false;
+    private bool quitarMascaraSoundPlayed = false;
+    private AudioSource audioPasos; // Referencia al AudioSource para el sonido de pasos.
+    public GameObject sonidoVillanoMuerto;
+    public GameObject risaMalo;
+    public GameObject sonidoFondoJuego;
+    public GameObject sonidoFlor;
+    private bool sonido_Flor = false;
+    private bool antesHabiaSonidoFlor = false;
+    public GameObject sonidoCharco;
+    private bool sonido_Charco = false;
+    private bool antesHabiaSonidoCharco = false;
+
 
     private void Start()
     {
@@ -104,7 +109,9 @@ public class PlayerController : MonoBehaviour
         audioPasos.clip = pasosSound;
         audioPasos.loop = false; // Desactiva el bucle inicialmente.
 
-        SoundManager.instance.PlayBackgroundMusic("sonidoAmbiente2");
+        Instantiate(sonidoFondoJuego);
+
+        //SoundManager.instance.PlayBackgroundMusic("sonidoAmbiente2");
 
     }
 
@@ -136,7 +143,7 @@ public class PlayerController : MonoBehaviour
         catch (System.Exception ex1)
         {
             ex1 = new System.Exception();
-        }  //Descomentar cuando se conecta el arduino */
+        }  //Descomentar cuando se conecta el arduino  */
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
@@ -158,7 +165,6 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 Animator.SetBool("Camina", true);
-                SoundManager.instance.PlaySound("pasosEnLaNieve");
             }
         }
         else
@@ -206,6 +212,8 @@ public class PlayerController : MonoBehaviour
                         {
                             enemigo[i].estaMuerto = true;
                             eMuerto = true;
+                            Instantiate(sonidoVillanoMuerto);
+
                         }
                     }
                 }
@@ -214,6 +222,8 @@ public class PlayerController : MonoBehaviour
             {
                 audioPasos.PlayOneShot(espada);
                 espadaSoundPlayed = true; // Marca el sonido como reproducido
+                
+                //audioPasos.PlayOneShot(villanoMuerto);
             }
         }
         else
@@ -222,6 +232,7 @@ public class PlayerController : MonoBehaviour
             espadaSoundPlayed = false; // Restablece la bandera cuando se suelta la tecla
         }
         Debug.Log("colisiones: " + colisiones);
+        //Debug.Log("sonido: " + sonidoVillanoMuerto);
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
@@ -253,6 +264,7 @@ public class PlayerController : MonoBehaviour
                     conFlor = true;
                     Animator.SetBool("sacamascara", true);
                     flor.florInactiva = true;
+                    sonido_Flor = true;
                 }
             }
         }
@@ -261,17 +273,26 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("sacamascara", false);
             quitarMascaraSoundPlayed = false;
         }
+
+        if (!antesHabiaSonidoFlor && sonido_Flor)
+        {
+            Instantiate(sonidoFlor);
+        }
+        antesHabiaSonidoFlor = sonido_Flor;
+
         if (eSinMascara == true)
         {
             Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
             vSinMasc = vSinMasc + 1;
             eSinMascara = false;
+            
         }
         if (eMuerto == true)
         {
             Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
             vMuertos = vMuertos + 1;
             eMuerto = false;
+            
         }
 
 
@@ -389,6 +410,7 @@ public class PlayerController : MonoBehaviour
         {
             colisiones++; // Incrementa el contador de colisiones.
             mareado = true;
+            audioPasos.PlayOneShot(raulGolpeado);
             if (colisiones >= vidas)
             {
                 atrapado = true;
@@ -399,11 +421,6 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
         {
             isGrounded = true;
-            //audioSalto.Stop();
-        }
-        else
-        {
-            //audioSalto.Play();
         }
 
         if (colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
@@ -411,11 +428,20 @@ public class PlayerController : MonoBehaviour
             mascara_s.toco_mascara = true;
             colisiones++;
             mareado = true;
+            sonido_Charco = true;
             if (colisiones >= vidas)
             {
                 atrapado = true;
             }
         }
+
+        if (!antesHabiaSonidoCharco && sonido_Charco)
+        {
+            Instantiate(sonidoCharco);
+        }
+        antesHabiaSonidoCharco = sonido_Charco;
+
+
         if (colision.gameObject.CompareTag("Flor"))
         {
             flor.florDesactivada = true;
@@ -424,15 +450,10 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        // Detén la música de fondo antes de cargar la escena de Game Over y reinicio.
-        SoundManager.instance.StopBackgroundMusic();
-        SoundManager.instance.hayMusicaDeFondo = false;
         SceneManager.LoadScene(3);
     }
     void Ganar()
     {
-        SoundManager.instance.StopBackgroundMusic();
-        SoundManager.instance.hayMusicaDeFondo = false;
         SceneManager.LoadScene(2);
     }
 }

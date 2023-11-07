@@ -10,12 +10,23 @@ public class EnemiShoot : MonoBehaviour
     public float distanciaFrenado;
     public float distanciaRetraso;
     public float distanciaparaDisparar = 20f;
+    private int valor;
 
     public Transform controladorDisparo;
     public GameObject bala;
+    public GameObject sonidoEnojado;
+    public GameObject sonidoTriste;
+    public GameObject sonidoFeliz;
+    public GameObject sacarMasc;
+    public GameObject lanzarMasc;
+
     private float tiempo;
     public bool estaMuerto = false;
     public bool sinMascara;
+    private bool emocionesCambio = false;
+    private bool antesHabiaEmociones = false;
+    private bool sonidoSinMasc = false;
+    private bool antesSonidoSinMasc = false;
 
     private BoxCollider2D villainCollider;
     private Rigidbody2D rb;
@@ -43,9 +54,8 @@ public class EnemiShoot : MonoBehaviour
             float distancia = Vector2.Distance(transform.position, player_pos.position);
             if (distancia < distanciaparaDisparar)
             {
-                SoundManager.instance.PlaySound("sonidoLanzar"); // Añade esta línea
+                Instantiate(lanzarMasc);
                 Animator.SetBool("ataca", true);
-                // Calcular la dirección hacia el jugador
                 Vector3 direccionHaciaJugador = (player_pos.position - controladorDisparo.position).normalized;
                 Instantiate(bala, controladorDisparo.position, Quaternion.FromToRotation(Vector3.left, direccionHaciaJugador));
                 tiempo = 0;
@@ -53,9 +63,9 @@ public class EnemiShoot : MonoBehaviour
         }
         else
         {
-            Animator.SetBool("ataca",false);
+            Animator.SetBool("ataca", false);
         }
-        
+
         //Debug.Log(tiempo);
         if (estaMuerto)
         {
@@ -70,8 +80,37 @@ public class EnemiShoot : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
+            sonidoSinMasc = true;
             //SoundManager.instance.PlaySound("efectoMareado");
-            Animator.SetInteger("emociones", Mathf.RoundToInt(Random.Range(1, 4)));
+            valor = Random.Range(1, 4);
+            Animator.SetInteger("emociones", valor);
+            emocionesCambio = true;
         }
+        if (!antesSonidoSinMasc && sonidoSinMasc)
+        {
+            Instantiate(sacarMasc);
+        }
+        antesSonidoSinMasc = sonidoSinMasc;
+
+
+        if (valor == 1 && !antesHabiaEmociones && emocionesCambio)
+        {
+            Instantiate(sonidoEnojado);
+
+        }
+        if (valor == 2 && !antesHabiaEmociones && emocionesCambio)
+        {
+            Instantiate(sonidoFeliz);
+
+        }
+        if (valor == 3 && !antesHabiaEmociones && emocionesCambio)
+        {
+            Instantiate(sonidoTriste);
+
+        }
+
+        antesHabiaEmociones = emocionesCambio;
+
+        //Debug.Log("sonido: " + valor);
     }
 }

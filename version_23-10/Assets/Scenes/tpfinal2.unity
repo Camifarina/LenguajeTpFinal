@@ -299,6 +299,11 @@ MonoBehaviour:
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 179408979}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
 --- !u!1 &77633948
@@ -433,7 +438,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &77633953
 MonoBehaviour:
@@ -674,7 +679,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &404250612
 GameObject:
@@ -1281,7 +1286,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700308508
 GameObject:
@@ -1484,7 +1489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &871638911
 GameObject:
@@ -1840,13 +1845,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_pos: {fileID: 1989103111}
-  raulcito: {fileID: 0}
+  raulcito: {fileID: 1989103108}
   speed: 6
   distanciaFrenado: 3
   distanciaRetraso: 3
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 572386272}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
 --- !u!212 &984941503
@@ -2087,7 +2097,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1064707927
 GameObject:
@@ -2222,7 +2232,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1156815456
 GameObject:
@@ -2268,7 +2278,6 @@ GameObject:
   - component: {fileID: 1256447299}
   - component: {fileID: 1256447298}
   - component: {fileID: 1256447297}
-  - component: {fileID: 1256447296}
   - component: {fileID: 1256447302}
   m_Layer: 0
   m_Name: Villain4
@@ -2277,18 +2286,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1256447296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256447295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab5cf6702b47d544887b992fc769fec2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1256447297
 Animator:
   serializedVersion: 4
@@ -2444,6 +2441,11 @@ MonoBehaviour:
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 1156815457}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
 --- !u!1 &1276762331
@@ -2665,6 +2667,11 @@ MonoBehaviour:
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 1546519116}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
 --- !u!212 &1281281719
@@ -2965,7 +2972,7 @@ Transform:
   - {fileID: 882635321}
   - {fileID: 1298451698}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447688599
 GameObject:
@@ -3143,6 +3150,11 @@ MonoBehaviour:
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 457683859}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
 --- !u!1 &1492519959
@@ -3158,7 +3170,6 @@ GameObject:
   - component: {fileID: 1492519963}
   - component: {fileID: 1492519962}
   - component: {fileID: 1492519961}
-  - component: {fileID: 1492519960}
   - component: {fileID: 1492519966}
   m_Layer: 0
   m_Name: Villain6
@@ -3167,18 +3178,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1492519960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1492519959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab5cf6702b47d544887b992fc769fec2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1492519961
 Animator:
   serializedVersion: 4
@@ -3334,6 +3333,11 @@ MonoBehaviour:
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 1826379844}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
 --- !u!1 &1546519115
@@ -3685,158 +3689,13 @@ MonoBehaviour:
   distanciaparaDisparar: 10
   controladorDisparo: {fileID: 2002710433}
   bala: {fileID: 5420820705495212737, guid: 00481fc680598b44ba762dd81e77098d, type: 3}
+  sonidoEnojado: {fileID: 8516584301722560017, guid: 671d15b36c07d8a4ca2b7d973d39780e, type: 3}
+  sonidoTriste: {fileID: 1577332081695847313, guid: 2e37170d64f331a4591c3293abd86d66, type: 3}
+  sonidoFeliz: {fileID: 3660147789067401844, guid: de2757c9e19cc934ea53987a872754c0, type: 3}
+  sacarMasc: {fileID: 777895605600554338, guid: 151e6092caf56e648a8ba8963adb2786, type: 3}
+  lanzarMasc: {fileID: 2373276203260365954, guid: a475fc9f8969a8d408c6988da7c43944, type: 3}
   estaMuerto: 0
   sinMascara: 0
---- !u!1 &1882313348
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1882313349}
-  - component: {fileID: 1882313351}
-  - component: {fileID: 1882313350}
-  m_Layer: 0
-  m_Name: Sonido
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1882313349
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882313348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1882313350
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882313348}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.08
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &1882313351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882313348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de668696c226d7e429e436309de105ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundSource: {fileID: 1882313350}
-  backgroundMusicSource: {fileID: 0}
-  soundClips:
-  - {fileID: 8300000, guid: 75c7b32ac60a40e4fa428964ed41b3b0, type: 3}
-  - {fileID: 8300000, guid: c9f6ec6281fd7ee4e81062cd76ca8b0c, type: 3}
-  - {fileID: 8300000, guid: ee72baf412292e548a484fd8c403e245, type: 3}
-  - {fileID: 8300000, guid: e67020f4ed806b444b5d2026c7268c9c, type: 3}
-  - {fileID: 8300000, guid: 743e9e597ad9c0541bef9f9f9417a8d6, type: 3}
-  hayMusicaDeFondo: 1
 --- !u!1 &1938722217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3921,10 +3780,6 @@ MonoBehaviour:
   matar: 0
   moveSpeed: 5
   jumpForce: 12
-  pasosSound: {fileID: 8300000, guid: 34a90febae038a14684b2053b4fe1bf8, type: 3}
-  salto: {fileID: 8300000, guid: c1c588c4b3efa684faa45e3363995ffd, type: 3}
-  espada: {fileID: 8300000, guid: 788e067b42664f74bb625a330a2cd58e, type: 3}
-  quitar_mascara: {fileID: 8300000, guid: f7fa4badfa6845744bdee93e27fadbb8, type: 3}
   distanciaParaMatar: 4
   eSinMascara: 0
   eMuerto: 0
@@ -3945,6 +3800,16 @@ MonoBehaviour:
   tirarSenal: 0
   conFlor: 0
   isGrounded: 0
+  pasosSound: {fileID: 8300000, guid: 34a90febae038a14684b2053b4fe1bf8, type: 3}
+  salto: {fileID: 8300000, guid: c1c588c4b3efa684faa45e3363995ffd, type: 3}
+  espada: {fileID: 8300000, guid: 788e067b42664f74bb625a330a2cd58e, type: 3}
+  quitar_mascara: {fileID: 8300000, guid: f7fa4badfa6845744bdee93e27fadbb8, type: 3}
+  raulGolpeado: {fileID: 8300000, guid: 8b5488bf280121748a7f895cfb9634fb, type: 3}
+  sonidoVillanoMuerto: {fileID: 2147455701123318474, guid: 380460cb189ee714bae522e80c2493d0, type: 3}
+  risaMalo: {fileID: 2202111776199150594, guid: 2a56b7fe130930c408282a05072120c1, type: 3}
+  sonidoFondoJuego: {fileID: 2613139749582708298, guid: b4fb945b06ca035468a7e177fab52f00, type: 3}
+  sonidoFlor: {fileID: 1309506873616430336, guid: 5b860c5b7a6d34f4eb0b07b214fe3136, type: 3}
+  sonidoCharco: {fileID: 4358735216956232405, guid: 22c6cc9c14431bb40a569767882c3b26, type: 3}
 --- !u!50 &1989103109
 Rigidbody2D:
   serializedVersion: 4

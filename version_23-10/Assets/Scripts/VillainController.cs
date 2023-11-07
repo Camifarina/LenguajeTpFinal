@@ -98,8 +98,6 @@ public class VillainController : MonoBehaviour
         // Asignar velocidad al proyectil en la dirección del personaje.
         bulletRb.velocity = direction * 5f; // Ajusta la velocidad según tu necesidad.
 
-        // Reproducir sonido de lanzamiento cuando el villano dispara.
-        SoundManager.instance.PlaySound("sonidoLanzar");
     } 
 
     void OnCollisionEnter2D(Collision2D collision)

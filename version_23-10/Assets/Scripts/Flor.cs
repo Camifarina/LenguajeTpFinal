@@ -10,6 +10,7 @@ public class Flor : MonoBehaviour
     public bool florDesactivada = false;
     public bool florInactiva = false;
 
+
     private BoxCollider2D florCollider;
     private Rigidbody2D rb;
     private Animator AnimatorFlor;
