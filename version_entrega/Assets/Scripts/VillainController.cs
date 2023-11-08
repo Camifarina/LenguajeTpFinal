@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VillainController : MonoBehaviour
 {
-    
+
     public float detectionDistance = 3f; // Distancia de detección del personaje.
     public float shootingCooldown = 1f; // Tiempo entre disparos.
     public GameObject bulletPrefab; // Prefab del proyectil.
@@ -21,7 +21,7 @@ public class VillainController : MonoBehaviour
     public Sprite normalSprite; // Sprite normal del personaje.
     public Sprite hitSprite; // Sprite después de ser alcanzado.
     private SpriteRenderer spriteRenderer; // Referencia al SpriteRenderer del personaje.
-    
+
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class VillainController : MonoBehaviour
             else if (velocity.x < 0)
             {
                 // El personaje está a la izquierda, el sprite del villano debería mirar a la izquierda.
-                 transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
 
             }
 
@@ -99,25 +99,25 @@ public class VillainController : MonoBehaviour
         bulletRb.velocity = direction * 5f; // Ajusta la velocidad según tu necesidad.
 
         // Reproducir sonido de lanzamiento cuando el villano dispara.
-        SoundManager.instance.PlaySound("sonidoLanzar");
-    } 
+        //SoundManager.instance.PlaySound("sonidoLanzar");
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-    if (collision.gameObject.CompareTag("Bala"))
-    {
-        // Cambia el sprite del personaje a la apariencia alcanzada.
-        spriteRenderer.sprite = hitSprite;
+        if (collision.gameObject.CompareTag("Bala"))
+        {
+            // Cambia el sprite del personaje a la apariencia alcanzada.
+            spriteRenderer.sprite = hitSprite;
 
-        // Llama a una función para restaurar el sprite después de 2 segundos.
-        Invoke("RestoreNormalSprite", 2f);
-    }
+            // Llama a una función para restaurar el sprite después de 2 segundos.
+            Invoke("RestoreNormalSprite", 2f);
+        }
     }
 
     void RestoreNormalSprite()
     {
-    // Restaura el sprite del personaje a la apariencia normal.
-    spriteRenderer.sprite = normalSprite;
+        // Restaura el sprite del personaje a la apariencia normal.
+        spriteRenderer.sprite = normalSprite;
     }
 
 }

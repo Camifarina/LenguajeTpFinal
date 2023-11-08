@@ -217,7 +217,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1178475146}
   - component: {fileID: 1178475147}
-  - component: {fileID: 1178475149}
   - component: {fileID: 1178475148}
   m_Layer: 0
   m_Name: Sound Manager
@@ -253,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb37a9abe2bd7643aa4785f79465388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  risaMalo: {fileID: 1143164658411251037, guid: 2a56b7fe130930c408282a05072120c1, type: 3}
 --- !u!82 &1178475148
 AudioSource:
   m_ObjectHideFlags: 0
@@ -349,23 +349,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1178475149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178475143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de668696c226d7e429e436309de105ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundSource: {fileID: 0}
-  backgroundMusicSource: {fileID: 1178475148}
-  soundClips:
-  - {fileID: 8300000, guid: a6ba3d992553b314fad0592599fa6eba, type: 3}
-  hayMusicaDeFondo: 1
 --- !u!1 &1439590120
 GameObject:
   m_ObjectHideFlags: 0

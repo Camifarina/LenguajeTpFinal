@@ -25,7 +25,7 @@ public class senal : MonoBehaviour
         reinicio = Reiniciar.GetComponent<Reinicio>();
         }
         if(SceneManager.GetActiveScene().buildIndex == 0) {
-        iniciar = GameObject.Find("Iniciar").transform;
+        iniciar = GameObject.Find("Pinicio").transform;
         boton = iniciar.GetComponent<Boton>();
         }
     }

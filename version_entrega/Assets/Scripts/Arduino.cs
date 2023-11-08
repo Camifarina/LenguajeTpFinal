@@ -30,7 +30,7 @@ public class Arduino : MonoBehaviour
             boton = puerto.ReadLine();
             try
             {
-                if (boton == "A")
+                if (boton == "derecha")
                 {
                     Debug.Log("1");
                     //player.matar = true;

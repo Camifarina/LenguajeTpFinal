@@ -111,8 +111,6 @@ public class PlayerController : MonoBehaviour
 
         Instantiate(sonidoFondoJuego);
 
-        //SoundManager.instance.PlayBackgroundMusic("sonidoAmbiente2");
-
     }
 
     private void Update()

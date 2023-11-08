@@ -7,7 +7,7 @@ using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
-    //public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
+    public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
     public bool izquierda = false;
     public bool derecha = false;
     public bool saltar = false;
@@ -16,14 +16,6 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private int cantidadVillanos = 6;
-
-    public AudioClip pasosSound; // Sonido de pasos.
-    public AudioClip salto; // Sonido de salto.
-    public AudioClip espada; // Sonido de espada.
-    public AudioClip quitar_mascara; // Sonido de cuando saca las mascaras.
-    private bool espadaSoundPlayed = false;
-    private bool quitarMascaraSoundPlayed = false;
-
 
     private Transform mascara_suelo;
     private Mascara_suelo mascara_s;
@@ -73,21 +65,35 @@ public class PlayerController : MonoBehaviour
     public bool tirarSenal = false; //booleano señales para liberar
     public bool conFlor = false; //booleano flor
 
-
     private Animator Animator;
-
     private bool isWalking = false; // Variable para verificar si el personaje está caminando.
-    private AudioSource audioPasos; // Referencia al AudioSource para el sonido de pasos.
-    // private AudioSource audioSalto;
-    // private AudioSource audioEspada;
-    // private AudioSource audioMascara;
-
     public bool isGrounded;
+
+
+    /* --- SONIDOS --- */
+    public AudioClip pasosSound; // Sonido de pasos.
+    public AudioClip salto; // Sonido de salto.
+    public AudioClip espada; // Sonido de espada.
+    public AudioClip quitar_mascara; // Sonido de cuando saca las mascaras.
+    public AudioClip raulGolpeado;
+    private bool espadaSoundPlayed = false;
+    private bool quitarMascaraSoundPlayed = false;
+    private AudioSource audioPasos; // Referencia al AudioSource para el sonido de pasos.
+    public GameObject sonidoVillanoMuerto;
+    public GameObject risaMalo;
+    public GameObject sonidoFondoJuego;
+    public GameObject sonidoFlor;
+    private bool sonido_Flor = false;
+    private bool antesHabiaSonidoFlor = false;
+    public GameObject sonidoCharco;
+    private bool sonido_Charco = false;
+    private bool antesHabiaSonidoCharco = false;
+
 
     private void Start()
     {
-        // puerto.ReadTimeout = 30;
-        // puerto.Open();  //Descomentar cuando se conecta el arduino
+        puerto.ReadTimeout = 30;
+        puerto.Open();  //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
         villano_pos[0] = GameObject.Find("Villain").transform;
@@ -118,13 +124,13 @@ public class PlayerController : MonoBehaviour
         audioPasos.clip = pasosSound;
         audioPasos.loop = false; // Desactiva el bucle inicialmente.
 
-        SoundManager.instance.PlayBackgroundMusic("sonidoAmbiente2");
+        Instantiate(sonidoFondoJuego);
 
     }
 
     private void Update()
     {
-        /* try
+        try
         {
             if (puerto.IsOpen)
             {
@@ -133,7 +139,7 @@ public class PlayerController : MonoBehaviour
                 {
                     izquierda = true;
                 }
-                else if (dato_recibido.Equals("derecha"))
+                else if (dato_recibido.Equals("abajo"))
                 {
                     derecha = true;
                 }
@@ -145,7 +151,7 @@ public class PlayerController : MonoBehaviour
                 {
                     matar = true;
                 }
-                else if (dato_recibido.Equals("S")) 
+                else if (dato_recibido.Equals("S"))
                 {
                     sacarMascara = true;
                 }
@@ -154,7 +160,7 @@ public class PlayerController : MonoBehaviour
         catch (System.Exception ex1)
         {
             ex1 = new System.Exception();
-        }  //Descomentar cuando se conecta el arduino */
+        }  //Descomentar cuando se conecta el arduino 
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
@@ -176,7 +182,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 Animator.SetBool("Camina", true);
-                SoundManager.instance.PlaySound("pasosEnLaNieve");
+                //SoundManager.instance.PlaySound("pasosEnLaNieve");
             }
         }
         else
@@ -225,18 +231,17 @@ public class PlayerController : MonoBehaviour
                         {
                             enemigo[i].estaMuerto = true;
                             eMuerto = true;
+                            Instantiate(sonidoVillanoMuerto);
                         }
                     }
                 }
             }
-            if(malo_pos.position.x > this.transform.position.x) {
-              if (distanciaMalo < distanciaParaMatar && malo.sinMascara == false && malo.estaMuerto == false)
-              {
-                if (malo != null) {
-                    malo.estaMuerto = true;
-                    eMuerto = true;
+            if (malo_pos.position.x > this.transform.position.x)
+            {
+                if (distanciaMalo < distanciaParaMatar && malo.sinMascara == false && malo.estaMuerto == false)
+                {
+                        malo.estaMuerto = true;
                 }
-              }
             }
             if (!espadaSoundPlayed && espada != null)
             {
@@ -281,13 +286,14 @@ public class PlayerController : MonoBehaviour
                     conFlor = true;
                     Animator.SetBool("sacamascara", true);
                     flor.florInactiva = true;
+                    sonido_Flor = true;
                 }
             }
             if (malo_pos.position.x > this.transform.position.x)
             {
                 if (distanciaMalo < distanciaParaMatar)
                 {
-                maloSinMascara = true;                
+                    maloSinMascara = true;
                 }
             }
         }
@@ -296,6 +302,13 @@ public class PlayerController : MonoBehaviour
             Animator.SetBool("sacamascara", false);
             quitarMascaraSoundPlayed = false;
         }
+
+        if (!antesHabiaSonidoFlor && sonido_Flor)
+        {
+            Instantiate(sonidoFlor);
+        }
+        antesHabiaSonidoFlor = sonido_Flor;
+
         if (eSinMascara == true)
         {
             Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
@@ -308,12 +321,14 @@ public class PlayerController : MonoBehaviour
             vMuertos = vMuertos + 1;
             eMuerto = false;
         }
-        if (!antesNo && maloSinMascara) {
+        if (!antesNo && maloSinMascara)
+        {
             mascarasMalo++;
-            maloSinMascara=false;
+            maloSinMascara = false;
             Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
         }
-        if (mascarasMalo >=3) {
+        if (mascarasMalo >= 3)
+        {
             malo.sinMascara = true;
         }
 
@@ -321,8 +336,8 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
             Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
-            controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);            
-            controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);            
+            controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
+            controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
         }
 
         //Debug.Log(isGrounded);
@@ -367,7 +382,7 @@ public class PlayerController : MonoBehaviour
             {
                 Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
                 Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
-                controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);  
+                controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
                 controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
             }
         }
@@ -379,7 +394,7 @@ public class PlayerController : MonoBehaviour
         saltar = false;
         sacarMascara = false;
 
-        if ((malo.sinMascara == true || malo.estaMuerto == true) && vMuertos <= cantidadVillanos && vMuertos > 0)
+        if ((malo.sinMascara == true || malo.estaMuerto == true) && vMuertos <= cantidadVillanos && vMuertos >= 0)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             tiempoMuerto += Time.deltaTime;
@@ -391,7 +406,7 @@ public class PlayerController : MonoBehaviour
 
         if (conFlor)
         {
-            Instantiate(burbuja, controladorBurbuja.position,Quaternion.identity);
+            Instantiate(burbuja, controladorBurbuja.position, Quaternion.identity);
             time += Time.deltaTime;
             flor.florInactiva = true;
             if (time >= 10)
@@ -439,6 +454,7 @@ public class PlayerController : MonoBehaviour
         {
             colisiones++; // Incrementa el contador de colisiones.
             mareado = true;
+            audioPasos.PlayOneShot(raulGolpeado);
             if (colisiones >= vidas)
             {
                 atrapado = true;
@@ -449,11 +465,6 @@ public class PlayerController : MonoBehaviour
         if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
         {
             isGrounded = true;
-            //audioSalto.Stop();
-        }
-        else
-        {
-            //audioSalto.Play();
         }
 
         if (colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
@@ -461,11 +472,19 @@ public class PlayerController : MonoBehaviour
             mascara_s.toco_mascara = true;
             colisiones++;
             mareado = true;
+            sonido_Charco = true;
             if (colisiones >= vidas)
             {
                 atrapado = true;
             }
         }
+
+        if (!antesHabiaSonidoCharco && sonido_Charco)
+        {
+            Instantiate(sonidoCharco);
+        }
+        antesHabiaSonidoCharco = sonido_Charco;
+
         if (colision.gameObject.CompareTag("Flor"))
         {
             flor.florDesactivada = true;
@@ -474,18 +493,13 @@ public class PlayerController : MonoBehaviour
 
     void pierdeMato()
     {
-        // Detén la música de fondo antes de cargar la escena de Game Over y reinicio.
-        SoundManager.instance.StopBackgroundMusic();
-        SoundManager.instance.hayMusicaDeFondo = false;
         SceneManager.LoadScene(3);
     }
     void Ganar()
     {
-        SoundManager.instance.StopBackgroundMusic();
-        SoundManager.instance.hayMusicaDeFondo = false;
         SceneManager.LoadScene(2);
     }
-    void Die() 
+    void Die()
     {
         SceneManager.LoadScene(4);
     }
