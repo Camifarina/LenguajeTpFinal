@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO.Ports;
+//using System.IO.Ports;
 
 public class PlayerController : MonoBehaviour
 {
-    public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
+    //public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
     public bool izquierda = false;
     public bool derecha = false;
     public bool saltar = false;
@@ -92,8 +92,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        puerto.ReadTimeout = 30;
-        puerto.Open();  //Descomentar cuando se conecta el arduino
+        //puerto.ReadTimeout = 30;
+        //puerto.Open();  //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
         villano_pos[0] = GameObject.Find("Villain").transform;
@@ -130,37 +130,37 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        try
-        {
-            if (puerto.IsOpen)
-            {
-                string dato_recibido = puerto.ReadLine();
-                if (dato_recibido.Equals("izquierda"))
-                {
-                    izquierda = true;
-                }
-                else if (dato_recibido.Equals("abajo"))
-                {
-                    derecha = true;
-                }
-                else if (dato_recibido.Equals("arriba"))
-                {
-                    saltar = true;
-                }
-                else if (dato_recibido.Equals("A"))
-                {
-                    matar = true;
-                }
-                else if (dato_recibido.Equals("S"))
-                {
-                    sacarMascara = true;
-                }
-            }
-        }
-        catch (System.Exception ex1)
-        {
-            ex1 = new System.Exception();
-        }  //Descomentar cuando se conecta el arduino 
+        // try
+        // {
+        //     if (puerto.IsOpen)
+        //     {
+        //         string dato_recibido = puerto.ReadLine();
+        //         if (dato_recibido.Equals("izquierda"))
+        //         {
+        //             izquierda = true;
+        //         }
+        //         else if (dato_recibido.Equals("abajo"))
+        //         {
+        //             derecha = true;
+        //         }
+        //         else if (dato_recibido.Equals("arriba"))
+        //         {
+        //             saltar = true;
+        //         }
+        //         else if (dato_recibido.Equals("A"))
+        //         {
+        //             matar = true;
+        //         }
+        //         else if (dato_recibido.Equals("S"))
+        //         {
+        //             sacarMascara = true;
+        //         }
+        //     }
+        // }
+        // catch (System.Exception ex1)
+        // {
+        //     ex1 = new System.Exception();
+        // }  //Descomentar cuando se conecta el arduino 
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
