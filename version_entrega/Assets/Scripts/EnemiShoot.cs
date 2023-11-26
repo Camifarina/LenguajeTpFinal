@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,9 @@ public class EnemiShoot : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         Animator = GetComponent<Animator>();
+
+        valor = Random.Range(1, 4);
+        Animator.SetInteger("emociones", valor);
     }
 
     // Update is called once per frame
@@ -63,10 +67,11 @@ public class EnemiShoot : MonoBehaviour
         }
         else
         {
-            Animator.SetBool("ataca",false);
+            Animator.SetBool("ataca", false);
         }
-        
-        //Debug.Log(tiempo);
+
+
+
         if (estaMuerto)
         {
             villainCollider.enabled = false;
@@ -81,33 +86,34 @@ public class EnemiShoot : MonoBehaviour
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
             sonidoSinMasc = true;
-            valor = Random.Range(1, 4);
-            Animator.SetInteger("emociones", valor);
             emocionesCambio = true;
+
+
+            if (valor == 1 && !antesHabiaEmociones && emocionesCambio)
+            {
+                Instantiate(sonidoEnojado);
+
+            }
+            else if (valor == 2 && !antesHabiaEmociones && emocionesCambio)
+            {
+                Instantiate(sonidoFeliz);
+
+            }
+            else if (valor == 3 && !antesHabiaEmociones && emocionesCambio)
+            {
+                Instantiate(sonidoTriste);
+
+            }
+
+            antesHabiaEmociones = emocionesCambio;
+
         }
+
         if (!antesSonidoSinMasc && sonidoSinMasc)
         {
             Instantiate(sacarMasc);
         }
         antesSonidoSinMasc = sonidoSinMasc;
 
-
-        if (valor == 1 && !antesHabiaEmociones && emocionesCambio)
-        {
-            Instantiate(sonidoEnojado);
-
-        }
-        if (valor == 2 && !antesHabiaEmociones && emocionesCambio)
-        {
-            Instantiate(sonidoFeliz);
-
-        }
-        if (valor == 3 && !antesHabiaEmociones && emocionesCambio)
-        {
-            Instantiate(sonidoTriste);
-
-        }
-
-        antesHabiaEmociones = emocionesCambio;
     }
 }

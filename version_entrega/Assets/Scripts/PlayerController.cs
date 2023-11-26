@@ -238,9 +238,9 @@ public class PlayerController : MonoBehaviour
             }
             if (malo_pos.position.x > this.transform.position.x)
             {
-                if (distanciaMalo < distanciaParaMatar && malo.sinMascara == false && malo.estaMuerto == false)
+                if (distanciaMalo < distanciaParaMatar && malo.sinMascaraMalo == false && malo.estaMuertoMalo == false)
                 {
-                        malo.estaMuerto = true;
+                        malo.estaMuertoMalo = true;
                 }
             }
             if (!espadaSoundPlayed && espada != null)
@@ -327,9 +327,9 @@ public class PlayerController : MonoBehaviour
             maloSinMascara = false;
             Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
         }
-        if (mascarasMalo >= 3)
+        if (mascarasMalo == 3)
         {
-            malo.sinMascara = true;
+            malo.sinMascaraMalo = true;
         }
 
         if (distanciaFlor < distanciaParaMatar)
@@ -344,7 +344,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("villanos liberados: " + vSinMasc);
         Debug.Log("villanos muertos: " + vMuertos);
 
-        if (vSinMasc >= cantidadVillanos && malo.sinMascara == true)
+        if (vSinMasc >= cantidadVillanos && malo.sinMascaraMalo == true)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             time += Time.deltaTime;
@@ -394,7 +394,7 @@ public class PlayerController : MonoBehaviour
         saltar = false;
         sacarMascara = false;
 
-        if ((malo.sinMascara == true || malo.estaMuerto == true) && vMuertos <= cantidadVillanos && vMuertos >= 0)
+        if ((malo.sinMascaraMalo == true || malo.estaMuertoMalo == true) && vMuertos <= cantidadVillanos && vMuertos > 0)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
             tiempoMuerto += Time.deltaTime;

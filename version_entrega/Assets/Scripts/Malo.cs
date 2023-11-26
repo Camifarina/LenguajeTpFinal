@@ -14,8 +14,12 @@ public class Malo : MonoBehaviour
     public Transform controladorDisparo;
     public GameObject bala;
     private float tiempo;
-    public bool estaMuerto = false;
-    public bool sinMascara;
+    public bool estaMuertoMalo = false;
+    public bool sinMascaraMalo;
+    private bool emocionesCambio = false;
+    private int valor = 1;
+    private bool antesHabiaEmociones = false;
+    public GameObject sonidoTriste;
 
     private BoxCollider2D villainCollider;
     private Rigidbody2D rb;
@@ -38,7 +42,7 @@ public class Malo : MonoBehaviour
     {
         // Disparo
         tiempo += Time.deltaTime;
-        if (tiempo >= 2 && player_pos.position.x < this.transform.position.x && raulcito.isGrounded && !estaMuerto && !sinMascara)
+        if (tiempo >= 2 && player_pos.position.x < this.transform.position.x && raulcito.isGrounded && !estaMuertoMalo && !sinMascaraMalo)
         {
             float distancia = Vector2.Distance(transform.position, player_pos.position);
             if (distancia < distanciaparaDisparar)
@@ -53,25 +57,33 @@ public class Malo : MonoBehaviour
         }
         else
         {
-            Animator.SetBool("ataca",false);
+            Animator.SetBool("ataca", false);
         }
-        
+
         //Debug.Log(tiempo);
-        if (estaMuerto)
+        if (estaMuertoMalo)
         {
             villainCollider.enabled = false;
             rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f; // Desactivar la gravedad en 2D
             Animator.SetBool("muerto", true);
         }
-        if (sinMascara)
+        if (sinMascaraMalo)
         {
             villainCollider.enabled = false;
             rb.velocity = new Vector2(0, rb.velocity.y);
             rb.gravityScale = 0f;
             Animator.SetBool("sinmascara", true);
-            //SoundManager.instance.PlaySound("efectoMareado");
-            Animator.SetInteger("emociones", Mathf.RoundToInt(Random.Range(1, 4)));
+            Animator.SetInteger("emociones", valor);
+            //Instantiate(sonidoTriste);
+            emocionesCambio = true;
+
+
+            if (valor == 1 && !antesHabiaEmociones && emocionesCambio)
+            {
+                Instantiate(sonidoTriste);
+            }
+            antesHabiaEmociones = emocionesCambio;
         }
     }
 }
