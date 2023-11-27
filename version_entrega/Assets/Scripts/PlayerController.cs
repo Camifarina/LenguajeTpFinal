@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using System.IO.Ports;
+//using System.IO.Ports;   //Descomentar cuando se conecta el arduino
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,8 +35,10 @@ public class PlayerController : MonoBehaviour
 
     public bool eSinMascara = false;
     public bool eMuerto = false;
-    public bool maloSinMascara = false;
-    public bool antesNo = false;
+    public bool maloMuerto = false;
+    private bool teclaAPresionada = false;
+    private bool teclaSDPresionada = false;
+    public bool mSinMascara = false;
 
     public Transform controladorSenal;
     public GameObject senal_izq;
@@ -53,32 +55,34 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    private int colisiones = 0; // Contador de colisiones.
+    private int colisiones = 0;
     public int vidas = 3; // Número máximo de colisiones antes de perder.
     public int vSinMasc = 0;
     private int vMuertos = 0;
-    private int mascarasMalo = 0;
     public bool mareado = false;
     public bool atrapado = false;
     public float tiempoMuerto = 0;
     public float time = 0;
     public bool tirarSenal = false; //booleano señales para liberar
     public bool conFlor = false; //booleano flor
+    public int maloMuere = 0;
+    public int mSinMasc = 0;
+
 
     private Animator Animator;
-    private bool isWalking = false; // Variable para verificar si el personaje está caminando.
+    private bool isWalking = false;
     public bool isGrounded;
 
 
     /* --- SONIDOS --- */
-    public AudioClip pasosSound; // Sonido de pasos.
-    public AudioClip salto; // Sonido de salto.
-    public AudioClip espada; // Sonido de espada.
-    public AudioClip quitar_mascara; // Sonido de cuando saca las mascaras.
+    public AudioClip pasosSound;
+    public AudioClip salto;
+    public AudioClip espada;
+    public AudioClip quitar_mascara;
     public AudioClip raulGolpeado;
     private bool espadaSoundPlayed = false;
     private bool quitarMascaraSoundPlayed = false;
-    private AudioSource audioPasos; // Referencia al AudioSource para el sonido de pasos.
+    private AudioSource audioPasos;
     public GameObject sonidoVillanoMuerto;
     public GameObject risaMalo;
     public GameObject sonidoFondoJuego;
@@ -92,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        //puerto.ReadTimeout = 30;
+        //puerto.ReadTimeout = 30;   //Descomentar cuando se conecta el arduino
         //puerto.Open();  //Descomentar cuando se conecta el arduino
         rb = GetComponent<Rigidbody2D>();
 
@@ -122,7 +126,7 @@ public class PlayerController : MonoBehaviour
         /* --- SONIDOS ---  */
         audioPasos = GetComponent<AudioSource>();
         audioPasos.clip = pasosSound;
-        audioPasos.loop = false; // Desactiva el bucle inicialmente.
+        audioPasos.loop = false;
 
         Instantiate(sonidoFondoJuego);
 
@@ -130,37 +134,40 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // try
-        // {
-        //     if (puerto.IsOpen)
-        //     {
-        //         string dato_recibido = puerto.ReadLine();
-        //         if (dato_recibido.Equals("izquierda"))
-        //         {
-        //             izquierda = true;
-        //         }
-        //         else if (dato_recibido.Equals("abajo"))
-        //         {
-        //             derecha = true;
-        //         }
-        //         else if (dato_recibido.Equals("arriba"))
-        //         {
-        //             saltar = true;
-        //         }
-        //         else if (dato_recibido.Equals("A"))
-        //         {
-        //             matar = true;
-        //         }
-        //         else if (dato_recibido.Equals("S"))
-        //         {
-        //             sacarMascara = true;
-        //         }
-        //     }
-        // }
-        // catch (System.Exception ex1)
-        // {
-        //     ex1 = new System.Exception();
-        // }  //Descomentar cuando se conecta el arduino 
+        /* //Descomentar cuando se conecta el arduino desde acá
+        try
+        {
+            if (puerto.IsOpen)
+            {
+                string dato_recibido = puerto.ReadLine();
+                if (dato_recibido.Equals("izquierda"))
+                {
+                    izquierda = true;
+                }
+                else if (dato_recibido.Equals("abajo"))
+                {
+                    derecha = true;
+                }
+                else if (dato_recibido.Equals("arriba"))
+                {
+                    saltar = true;
+                }
+                else if (dato_recibido.Equals("A"))
+                {
+                    matar = true;
+                }
+                else if (dato_recibido.Equals("S"))
+                {
+                    sacarMascara = true;
+                }
+            }
+        }
+        catch (System.Exception ex1)
+        {
+            ex1 = new System.Exception();
+        }  
+        //Descomentar cuando se conecta el arduino hasta acá */
+
 
         // Mover a la izquierda
         if (Input.GetKey(KeyCode.LeftArrow) || izquierda)
@@ -173,6 +180,7 @@ public class PlayerController : MonoBehaviour
                 Animator.SetBool("Camina", true);
             }
         }
+
         // Mover a la derecha
         else if (Input.GetKey(KeyCode.RightArrow) || derecha)
         {
@@ -182,7 +190,6 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 Animator.SetBool("Camina", true);
-                //SoundManager.instance.PlaySound("pasosEnLaNieve");
             }
         }
         else
@@ -217,83 +224,91 @@ public class PlayerController : MonoBehaviour
         distanciaFlor = Vector2.Distance(transform.position, flor_pos.position); //DISTANCIA FLOR
         distanciaMalo = Vector2.Distance(transform.position, malo_pos.position); //DISTANCIA MALO MAS MALO
 
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.A) || matar)
         {
-            Animator.SetBool("Mata", true);
-
-            for (int i = 0; i < cantidadVillanos; i++)
+            if (!teclaAPresionada)
             {
-                if (villano_pos[i].position.x > this.transform.position.x)
+                Animator.SetBool("Mata", true);
+
+                for (int i = 0; i < cantidadVillanos; i++)
                 {
-                    if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
+                    if (villano_pos[i].position.x > this.transform.position.x)
                     {
-                        if (enemigo[i] != null)
+                        if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
                         {
-                            enemigo[i].estaMuerto = true;
-                            eMuerto = true;
-                            Instantiate(sonidoVillanoMuerto);
+                            if (enemigo[i] != null)
+                            {
+                                enemigo[i].estaMuerto = true;
+                                eMuerto = true;
+                                Instantiate(sonidoVillanoMuerto);
+                            }
                         }
                     }
                 }
-            }
-            if (malo_pos.position.x > this.transform.position.x)
-            {
-                if (distanciaMalo < distanciaParaMatar && malo.sinMascaraMalo == false && malo.estaMuertoMalo == false)
+                if (malo_pos.position.x > this.transform.position.x && distanciaMalo < distanciaParaMatar && malo.sinMascaraMalo == false && malo.estaMuertoMalo == false)
                 {
-                        malo.estaMuertoMalo = true;
+                    maloMuerto = true;
+                    Instantiate(sonidoVillanoMuerto);
                 }
+                teclaAPresionada = true;
             }
             if (!espadaSoundPlayed && espada != null)
             {
                 audioPasos.PlayOneShot(espada);
-                espadaSoundPlayed = true; // Marca el sonido como reproducido
+                espadaSoundPlayed = true;
             }
         }
         else
         {
             Animator.SetBool("Mata", false);
-            espadaSoundPlayed = false; // Restablece la bandera cuando se suelta la tecla
+            espadaSoundPlayed = false;
+            teclaAPresionada = false;
         }
-        Debug.Log("colisiones: " + colisiones);
+
 
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) || sacarMascara)
         {
-            for (int i = 0; i < cantidadVillanos; i++)
+            if (!teclaSDPresionada)
             {
-                if (villano_pos[i].position.x > this.transform.position.x)
+                for (int i = 0; i < cantidadVillanos; i++)
                 {
-                    if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
+                    if (villano_pos[i].position.x > this.transform.position.x)
                     {
-                        if (enemigo[i] != null)
+                        if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
                         {
-                            transform.localScale = new Vector3(2, 2, 2);
-                            Animator.SetBool("sacamascara", true);
-                            enemigo[i].sinMascara = true;
-                        }
-                        if (!quitarMascaraSoundPlayed && quitar_mascara != null)
-                        {
-                            audioPasos.PlayOneShot(quitar_mascara);
-                            quitarMascaraSoundPlayed = true;
-                            eSinMascara = true;
+                            if (enemigo[i] != null)
+                            {
+                                transform.localScale = new Vector3(2, 2, 2);
+                                Animator.SetBool("sacamascara", true);
+                                enemigo[i].sinMascara = true;
+                            }
+                            if (!quitarMascaraSoundPlayed && quitar_mascara != null)
+                            {
+                                audioPasos.PlayOneShot(quitar_mascara);
+                                quitarMascaraSoundPlayed = true;
+                                eSinMascara = true;
+                            }
                         }
                     }
                 }
-            }
-            if (flor_pos.position.x > this.transform.position.x)
-            {
-                if (distanciaFlor < distanciaParaMatar)
+                if (flor_pos.position.x > this.transform.position.x)
                 {
-                    conFlor = true;
-                    Animator.SetBool("sacamascara", true);
-                    flor.florInactiva = true;
-                    sonido_Flor = true;
+                    if (distanciaFlor < distanciaParaMatar)
+                    {
+                        conFlor = true;
+                        Animator.SetBool("sacamascara", true);
+                        flor.florInactiva = true;
+                        sonido_Flor = true;
+                    }
                 }
-            }
-            if (malo_pos.position.x > this.transform.position.x)
-            {
-                if (distanciaMalo < distanciaParaMatar)
+                if (malo_pos.position.x > this.transform.position.x && distanciaMalo < distanciaParaMatar && malo.sinMascaraMalo == false && malo.estaMuertoMalo == false)
                 {
-                    maloSinMascara = true;
+                    if (distanciaMalo < distanciaParaMatar)
+                    {
+                        mSinMascara = true;
+                    }
+                    teclaSDPresionada = true;
                 }
             }
         }
@@ -301,6 +316,21 @@ public class PlayerController : MonoBehaviour
         {
             Animator.SetBool("sacamascara", false);
             quitarMascaraSoundPlayed = false;
+            teclaSDPresionada = false;
+        }
+
+        if (maloMuerto == true)
+        {
+            Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
+            maloMuere++;
+            maloMuerto = false;
+        }
+
+        if (mSinMascara == true)
+        {
+            Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
+            mSinMasc++;
+            mSinMascara = false;
         }
 
         if (!antesHabiaSonidoFlor && sonido_Flor)
@@ -321,13 +351,7 @@ public class PlayerController : MonoBehaviour
             vMuertos = vMuertos + 1;
             eMuerto = false;
         }
-        if (!antesNo && maloSinMascara)
-        {
-            mascarasMalo++;
-            maloSinMascara = false;
-            Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
-        }
-        if (mascarasMalo == 3)
+        if (mSinMasc >= 3)
         {
             malo.sinMascaraMalo = true;
         }
@@ -339,10 +363,6 @@ public class PlayerController : MonoBehaviour
             controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
             controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
         }
-
-        //Debug.Log(isGrounded);
-        Debug.Log("villanos liberados: " + vSinMasc);
-        Debug.Log("villanos muertos: " + vMuertos);
 
         if (vSinMasc >= cantidadVillanos && malo.sinMascaraMalo == true)
         {
@@ -361,7 +381,6 @@ public class PlayerController : MonoBehaviour
             tiempoMuerto += Time.deltaTime;
             if (tiempoMuerto >= 2)
             {
-                //Si el contador alcanza el máximo, llama a la función de muerte.
                 Die();
             }
         }
@@ -387,12 +406,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        antesNo = maloSinMascara;
         izquierda = false;
         derecha = false;
         matar = false;
         saltar = false;
         sacarMascara = false;
+
+        if (maloMuere >= 3)
+        {
+            malo.estaMuertoMalo = true;
+        }
 
         if ((malo.sinMascaraMalo == true || malo.estaMuertoMalo == true) && vMuertos <= cantidadVillanos && vMuertos > 0)
         {
@@ -443,7 +466,6 @@ public class PlayerController : MonoBehaviour
         {
             yield return null;
         }
-
         audioPasos.Stop();
     }
 
@@ -452,7 +474,7 @@ public class PlayerController : MonoBehaviour
     {
         if (colision.gameObject.CompareTag("Bala") && !conFlor)
         {
-            colisiones++; // Incrementa el contador de colisiones.
+            colisiones++;
             mareado = true;
             audioPasos.PlayOneShot(raulGolpeado);
             if (colisiones >= vidas)
@@ -462,7 +484,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (colision.gameObject.CompareTag("Ground")) // Asegúrate de que el tag del suelo sea "Ground".
+        if (colision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }

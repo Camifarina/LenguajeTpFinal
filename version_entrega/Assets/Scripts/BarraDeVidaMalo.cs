@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,33 +8,39 @@ public class BarraDeVidaMalo : MonoBehaviour
     private Animator Animator;
     public PlayerController raulcito;
     public Malo malo;
-    private int golpes = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         Animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (raulcito.maloSinMascara == true)
+        if (raulcito.maloMuere == 1)
         {
-            golpes++;
+            Animator.SetInteger("Mvidas", Mathf.RoundToInt(1));
         }
-        Debug.Log("malo: "+golpes);
+        else if (raulcito.maloMuere == 2)
+        {
+            Animator.SetInteger("Mvidas", Mathf.RoundToInt(2));
+        }
+        else if (raulcito.maloMuere == 3)
+        {
+            Animator.SetInteger("Mvidas", Mathf.RoundToInt(3));
+        }
 
-        if (golpes == 1)
+
+        if (raulcito.mSinMasc == 1)
         {
-            Animator.SetInteger("Mvidas", 1);
+            Animator.SetInteger("Mvidas", Mathf.RoundToInt(1));
         }
-        else if (golpes == 2)
+        else if (raulcito.mSinMasc == 2)
         {
-            Animator.SetInteger("Mvidas", 2);
+            Animator.SetInteger("Mvidas", Mathf.RoundToInt(2));
         }
-        else if (golpes == 3)
+        else if (raulcito.mSinMasc == 3)
         {
-            Animator.SetInteger("Mvidas", 3);
+            Animator.SetInteger("Mvidas", Mathf.RoundToInt(3));
         }
     }
 }

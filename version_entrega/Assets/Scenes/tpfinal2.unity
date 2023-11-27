@@ -1078,7 +1078,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1064707929}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &627154740
 GameObject:
@@ -1809,7 +1809,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1064707929}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &984941498
 GameObject:
@@ -2211,10 +2211,10 @@ Transform:
   m_Children:
   - {fileID: 519420032}
   - {fileID: 810008636}
+  - {fileID: 1123466708}
   - {fileID: 1938722218}
   - {fileID: 939649117}
   - {fileID: 620309864}
-  - {fileID: 1123466708}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2334,7 +2334,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1064707929}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1123466709
 Animator:
@@ -2369,7 +2369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raulcito: {fileID: 1989103108}
-  malo: {fileID: 1853821752}
+  malo: {fileID: 0}
 --- !u!212 &1123466711
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2922,7 +2922,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281281714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11, y: -0.96, z: 0}
+  m_LocalPosition: {x: 19.32, y: -0.96, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3813,7 +3813,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853821746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 170.65, y: -0.86, z: 0}
+  m_LocalPosition: {x: 5.79, y: -0.75, z: 0}
   m_LocalScale: {x: 0.49999994, y: 0.49999994, z: 0.49999994}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -4090,7 +4090,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1064707929}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989103106
 GameObject:
@@ -4149,8 +4149,8 @@ MonoBehaviour:
   distanciaParaMatar: 4
   eSinMascara: 0
   eMuerto: 0
-  maloSinMascara: 0
-  antesNo: 0
+  maloMuerto: 0
+  mSinMascara: 0
   controladorSenal: {fileID: 1938722218}
   senal_izq: {fileID: 1787635415467005597, guid: 93aaa0a4c7e865b4e99810efa5692c32, type: 3}
   controladorSenal2: {fileID: 939649117}
@@ -4169,6 +4169,8 @@ MonoBehaviour:
   time: 0
   tirarSenal: 0
   conFlor: 0
+  maloMuere: 0
+  mSinMasc: 0
   isGrounded: 0
   pasosSound: {fileID: 8300000, guid: 34a90febae038a14684b2053b4fe1bf8, type: 3}
   salto: {fileID: 8300000, guid: c1c588c4b3efa684faa45e3363995ffd, type: 3}
