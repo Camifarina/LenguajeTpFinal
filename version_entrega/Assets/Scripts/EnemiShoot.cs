@@ -33,13 +33,12 @@ public class EnemiShoot : MonoBehaviour
     private Rigidbody2D rb;
     private Animator Animator;
 
-    // Start is called before the first frame update
     void Start()
     {
         player_pos = GameObject.Find("Player").transform;
         raulcito = player_pos.GetComponent<PlayerController>();
 
-        villainCollider = GetComponent<BoxCollider2D>(); //Collider del villano
+        villainCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
 
         Animator = GetComponent<Animator>();
@@ -48,7 +47,6 @@ public class EnemiShoot : MonoBehaviour
         Animator.SetInteger("emociones", valor);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Disparo

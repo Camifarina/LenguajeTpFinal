@@ -1452,7 +1452,7 @@ GameObject:
   - component: {fileID: 810008638}
   - component: {fileID: 810008637}
   m_Layer: 0
-  m_Name: barras_0
+  m_Name: barraDeVida
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2315,7 +2315,7 @@ GameObject:
   - component: {fileID: 1123466710}
   - component: {fileID: 1123466709}
   m_Layer: 0
-  m_Name: BarradevidaMalo_0
+  m_Name: BarradevidaMalo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2369,7 +2369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raulcito: {fileID: 1989103108}
-  malo: {fileID: 0}
+  malo: {fileID: 1853821752}
 --- !u!212 &1123466711
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4147,6 +4147,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 12
   distanciaParaMatar: 4
+  distanciaBarra: 15
   eSinMascara: 0
   eMuerto: 0
   maloMuerto: 0
@@ -4161,6 +4162,7 @@ MonoBehaviour:
   controladorRecuadro: {fileID: 620309864}
   burbuja: {fileID: 4281078539778549674, guid: 9009a3b92c4b0c8478b856e48900fd51, type: 3}
   controladorBurbuja: {fileID: 1299732537}
+  BarraDeVidaMalo: {fileID: 1123466707}
   vidas: 3
   vSinMasc: 0
   mareado: 0

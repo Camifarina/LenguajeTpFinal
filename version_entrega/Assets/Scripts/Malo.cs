@@ -25,19 +25,17 @@ public class Malo : MonoBehaviour
     private Rigidbody2D rb;
     private Animator Animator;
 
-    // Start is called before the first frame update
     void Start()
     {
         player_pos = GameObject.Find("Player").transform;
         raulcito = player_pos.GetComponent<PlayerController>();
 
-        villainCollider = GetComponent<BoxCollider2D>(); //Collider del villano
+        villainCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
 
         Animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Disparo
@@ -47,9 +45,8 @@ public class Malo : MonoBehaviour
             float distancia = Vector2.Distance(transform.position, player_pos.position);
             if (distancia < distanciaparaDisparar)
             {
-                SoundManager.instance.PlaySound("sonidoLanzar"); // Añade esta línea
+                SoundManager.instance.PlaySound("sonidoLanzar");
                 Animator.SetBool("ataca", true);
-                // Calcular la dirección hacia el jugador
                 Vector3 direccionHaciaJugador = (player_pos.position - controladorDisparo.position).normalized;
                 Instantiate(bala, controladorDisparo.position, Quaternion.FromToRotation(Vector3.left, direccionHaciaJugador));
                 tiempo = 0;
@@ -60,7 +57,6 @@ public class Malo : MonoBehaviour
             Animator.SetBool("ataca", false);
         }
 
-        //Debug.Log(tiempo);
         if (estaMuertoMalo)
         {
             villainCollider.enabled = false;

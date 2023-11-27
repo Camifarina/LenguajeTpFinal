@@ -13,7 +13,6 @@ public class BarraDeVida : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (raulcito.mareado == true)

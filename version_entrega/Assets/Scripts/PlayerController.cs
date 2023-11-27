@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private Transform[] villano_pos = new Transform[6]; //Enemigos
     public float distanciaParaMatar = 5f;
+    public float distanciaBarra = 10f;
     private float[] distancia = new float[6];
     private EnemiShoot[] enemigo = new EnemiShoot[6];
 
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public Transform controladorRecuadro; //controlador de los recuadros
     public GameObject burbuja; //burbuja cuando agarra la flor
     public Transform controladorBurbuja;
+    public GameObject BarraDeVidaMalo;
 
 
 
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
         flor_pos = GameObject.Find("Flor").transform;
         flor = flor_pos.GetComponent<Flor>();
 
+        BarraDeVidaMalo.SetActive(false);
 
         Animator = GetComponent<Animator>();
 
@@ -404,6 +407,11 @@ public class PlayerController : MonoBehaviour
                 controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
                 controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
             }
+        }
+
+        if (distanciaMalo < distanciaBarra)
+        {
+            BarraDeVidaMalo.SetActive(true);
         }
 
         izquierda = false;
