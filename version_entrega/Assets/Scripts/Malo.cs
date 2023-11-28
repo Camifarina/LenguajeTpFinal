@@ -40,7 +40,7 @@ public class Malo : MonoBehaviour
     {
         // Disparo
         tiempo += Time.deltaTime;
-        if (tiempo >= 2 && player_pos.position.x < this.transform.position.x && raulcito.isGrounded && !estaMuertoMalo && !sinMascaraMalo)
+        if (tiempo >= 4 && player_pos.position.x < this.transform.position.x && raulcito.isGrounded && !estaMuertoMalo && !sinMascaraMalo)
         {
             float distancia = Vector2.Distance(transform.position, player_pos.position);
             if (distancia < distanciaparaDisparar)

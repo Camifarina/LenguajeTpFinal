@@ -4169,6 +4169,9 @@ MonoBehaviour:
   atrapado: 0
   tiempoMuerto: 0
   time: 0
+  maloMalo: {fileID: 1853821746}
+  titila: 0
+  tiempoTitila: 0
   tirarSenal: 0
   conFlor: 0
   maloMuere: 0
