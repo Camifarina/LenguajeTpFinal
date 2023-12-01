@@ -21,8 +21,11 @@ public class PlayerController : MonoBehaviour
     private Mascara_suelo mascara_s;
 
     private Transform flor_pos; //Flor
+    private Transform flor_pos2; //Flor2
     private Flor flor = new Flor();
+    private Flor flor2 = new Flor();
     private float distanciaFlor = new float();
+    private float distanciaFlor2 = new float();
 
     private Transform malo_pos;
     private Malo malo = new Malo();
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
     public float tiempoTitila = 0;
     public bool tirarSenal = false; //booleano señales para liberar
     public bool conFlor = false; //booleano flor
+    public bool conFlor2 = false;
     public int maloMuere = 0;
     public int mSinMasc = 0;
 
@@ -122,6 +126,9 @@ public class PlayerController : MonoBehaviour
 
         flor_pos = GameObject.Find("Flor").transform;
         flor = flor_pos.GetComponent<Flor>();
+
+        flor_pos2 = GameObject.Find("Flor2").transform;
+        flor2 = flor_pos2.GetComponent<Flor>();
 
         BarraDeVidaMalo.SetActive(false);
 
@@ -226,6 +233,7 @@ public class PlayerController : MonoBehaviour
         }
 
         distanciaFlor = Vector2.Distance(transform.position, flor_pos.position); //DISTANCIA FLOR
+        distanciaFlor2 = Vector2.Distance(transform.position, flor_pos2.position);
         distanciaMalo = Vector2.Distance(transform.position, malo_pos.position); //DISTANCIA MALO MAS MALO
 
 
@@ -303,6 +311,16 @@ public class PlayerController : MonoBehaviour
                         conFlor = true;
                         Animator.SetBool("sacamascara", true);
                         flor.florInactiva = true;
+                        sonido_Flor = true;
+                    }
+                }
+                if (flor_pos2.position.x > this.transform.position.x)
+                {
+                    if (distanciaFlor2 < distanciaParaMatar)
+                    {
+                        conFlor2 = true;
+                        Animator.SetBool("sacamascara", true);
+                        flor2.florInactiva = true;
                         sonido_Flor = true;
                     }
                 }
@@ -394,7 +412,7 @@ public class PlayerController : MonoBehaviour
                     malo.sinMascaraMalo = true;
                 }
 
-                if (distanciaFlor < distanciaParaMatar)
+                if (distanciaFlor < distanciaParaMatar || distanciaFlor2 < distanciaParaMatar)
                 {
                     Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
                     Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
@@ -481,6 +499,17 @@ public class PlayerController : MonoBehaviour
                         time = 0;
                     }
                 }
+                if (conFlor2)
+                {
+                    Instantiate(burbuja, controladorBurbuja.position, Quaternion.identity);
+                    time += Time.deltaTime;
+                    flor2.florInactiva = true;
+                    if (time >= 10)
+                    {
+                        conFlor2 = false;
+                        time = 0;
+                    }
+                }
             }
 
             private void TryPlayFootstepSound()
@@ -553,6 +582,10 @@ public class PlayerController : MonoBehaviour
                 if (colision.gameObject.CompareTag("Flor"))
                 {
                     flor.florDesactivada = true;
+                }
+                if (colision.gameObject.CompareTag("Flor2"))
+                {
+                    flor2.florDesactivada = true;
                 }
             }
 

@@ -19,7 +19,7 @@ public class Reinicio : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if (time >= 3)
+        if (time >= 1)
         {
             Quaternion rotation = Quaternion.Euler(0f, 0f, 90f); // Rotación de -90 grados en el eje Z para 2D
             Instantiate(senal_izq, controladorSenal.position, rotation);

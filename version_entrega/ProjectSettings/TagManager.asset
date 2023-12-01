@@ -11,6 +11,7 @@ TagManager:
   - recuadro_golpeado
   - mascara_suelo
   - Flor
+  - Flor2
   layers:
   - Default
   - TransparentFX

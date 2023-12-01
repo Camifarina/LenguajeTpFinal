@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cinematica.unity
     guid: 3007dffc35fbf384ca984695cbb321db
+  - enabled: 1
+    path: Assets/Scenes/PantallaFlymms.unity
+    guid: a5a4157ef8cbc194c8f925ab7e8d0ff3
   m_configObjects: {}
