@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //using System.IO.Ports;   //Descomentar cuando se conecta el arduino
 
+/* Scripts que tienen arduino: PlayerController, Arduino, Boton, cinematica y Reinicio */
+
 public class PlayerController : MonoBehaviour
 {
     //public SerialPort puerto = new SerialPort("COM5", 9600); //Descomentar cuando se conecta el arduino
@@ -145,7 +147,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        /* //Descomentar cuando se conecta el arduino desde acá
+        /*// Descomentar cuando se conecta el arduino desde acá
         try
         {
             if (puerto.IsOpen)
@@ -388,217 +390,219 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        //Debug.Log(sonido_Flor);
 
-                if (!antesHabiaSonidoFlor && sonido_Flor)
-                {
-                    Instantiate(sonidoFlor);
-                }
-                antesHabiaSonidoFlor = sonido_Flor;
+        if (!antesHabiaSonidoFlor && sonido_Flor)
+        {
+            Instantiate(sonidoFlor);
+        }
+        antesHabiaSonidoFlor = sonido_Flor;
+        sonido_Flor = false;
 
-                if (eSinMascara == true)
-                {
-                    Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
-                    vSinMasc = vSinMasc + 1;
-                    eSinMascara = false;
-                }
-                if (eMuerto == true)
-                {
-                    Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
-                    vMuertos = vMuertos + 1;
-                    eMuerto = false;
-                }
-                if (mSinMasc >= 3)
-                {
-                    malo.sinMascaraMalo = true;
-                }
+        if (eSinMascara == true)
+        {
+            Instantiate(recuadro_liberoCiudadano, controladorRecuadro.position, Quaternion.identity);
+            vSinMasc = vSinMasc + 1;
+            eSinMascara = false;
+        }
+        if (eMuerto == true)
+        {
+            Instantiate(recuadro_matoCiudadano, controladorRecuadro.position, Quaternion.identity);
+            vMuertos = vMuertos + 1;
+            eMuerto = false;
+        }
+        if (mSinMasc >= 3)
+        {
+            malo.sinMascaraMalo = true;
+        }
 
-                if (distanciaFlor < distanciaParaMatar || distanciaFlor2 < distanciaParaMatar)
-                {
-                    Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
-                    Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
-                    controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
-                    controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
-                }
+        if (distanciaFlor < distanciaParaMatar || distanciaFlor2 < distanciaParaMatar)
+        {
+            Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+            Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+            controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
+            controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
+        }
 
-                if (vSinMasc >= cantidadVillanos && malo.sinMascaraMalo == true)
-                {
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-                    time += Time.deltaTime;
-                    if (time >= 3)
-                    {
-                        Ganar();
-                    }
-                }
-
-                if (atrapado)
-                {
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-                    Animator.SetBool("muerto", true);
-                    tiempoMuerto += Time.deltaTime;
-                    if (tiempoMuerto >= 2)
-                    {
-                        Die();
-                    }
-                }
-                if (mareado && !atrapado)
-                {
-                    Instantiate(recuadro_golpeado, controladorRecuadro.position, Quaternion.identity);
-                    Animator.SetBool("mareado", true);
-                    mareado = false;
-                }
-                else
-                {
-                    Animator.SetBool("mareado", false);
-                }
-
-                for (int i = 0; i < cantidadVillanos; i++)
-                {
-                    if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
-                    {
-                        Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
-                        Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
-                        controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
-                        controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
-                    }
-                }
-
-                if (distanciaMalo < distanciaBarra)
-                {
-                    BarraDeVidaMalo.SetActive(true);
-                }
-
-                izquierda = false;
-                derecha = false;
-                matar = false;
-                saltar = false;
-                sacarMascara = false;
-
-                if (maloMuere >= 1)
-                {
-                    malo.estaMuertoMalo = true;
-                }
-
-                if ((malo.sinMascaraMalo == true && vMuertos <= cantidadVillanos && vMuertos > 0) || (malo.estaMuertoMalo == true && vMuertos <= cantidadVillanos && vMuertos >= 0))
-                {
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-                    tiempoMuerto += Time.deltaTime;
-                    if (tiempoMuerto >= 3)
-                    {
-                        pierdeMato();
-                    }
-                }
-
-                if (conFlor)
-                {
-                    Instantiate(burbuja, controladorBurbuja.position, Quaternion.identity);
-                    time += Time.deltaTime;
-                    flor.florInactiva = true;
-                    if (time >= 10)
-                    {
-                        conFlor = false;
-                        time = 0;
-                    }
-                }
-                if (conFlor2)
-                {
-                    Instantiate(burbuja, controladorBurbuja.position, Quaternion.identity);
-                    time += Time.deltaTime;
-                    flor2.florInactiva = true;
-                    if (time >= 10)
-                    {
-                        conFlor2 = false;
-                        time = 0;
-                    }
-                }
-            }
-
-            private void TryPlayFootstepSound()
+        if (vSinMasc >= cantidadVillanos && malo.sinMascaraMalo == true)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            time += Time.deltaTime;
+            if (time >= 3)
             {
-                if (!isWalking)
-                {
-                    isWalking = true;
-                    StartCoroutine(PlayFootstepSound());
-                }
-            }
-
-            private void StopFootstepSound()
-            {
-                if (isWalking)
-                {
-                    isWalking = false;
-                    audioPasos.Stop();
-                }
-            }
-
-            private IEnumerator PlayFootstepSound()
-            {
-                audioPasos.Play();
-
-                while (isWalking)
-                {
-                    yield return null;
-                }
-                audioPasos.Stop();
-            }
-
-
-            void OnCollisionEnter2D(Collision2D colision)
-            {
-                if (colision.gameObject.CompareTag("Bala") && !conFlor)
-                {
-                    colisiones++;
-                    mareado = true;
-                    audioPasos.PlayOneShot(raulGolpeado);
-                    if (colisiones >= vidas)
-                    {
-                        atrapado = true;
-                    }
-                }
-
-
-                if (colision.gameObject.CompareTag("Ground"))
-                {
-                    isGrounded = true;
-                }
-
-                if (colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
-                {
-                    mascara_s.toco_mascara = true;
-                    colisiones++;
-                    mareado = true;
-                    sonido_Charco = true;
-                    if (colisiones >= vidas)
-                    {
-                        atrapado = true;
-                    }
-                }
-
-                if (!antesHabiaSonidoCharco && sonido_Charco)
-                {
-                    Instantiate(sonidoCharco);
-                }
-                antesHabiaSonidoCharco = sonido_Charco;
-
-                if (colision.gameObject.CompareTag("Flor"))
-                {
-                    flor.florDesactivada = true;
-                }
-                if (colision.gameObject.CompareTag("Flor2"))
-                {
-                    flor2.florDesactivada = true;
-                }
-            }
-
-            void pierdeMato()
-            {
-                SceneManager.LoadScene(3);
-            }
-            void Ganar()
-            {
-                SceneManager.LoadScene(2);
-            }
-            void Die()
-            {
-                SceneManager.LoadScene(4);
+                Ganar();
             }
         }
+
+        if (atrapado)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            Animator.SetBool("muerto", true);
+            tiempoMuerto += Time.deltaTime;
+            if (tiempoMuerto >= 2)
+            {
+                Die();
+            }
+        }
+        if (mareado && !atrapado)
+        {
+            Instantiate(recuadro_golpeado, controladorRecuadro.position, Quaternion.identity);
+            Animator.SetBool("mareado", true);
+            mareado = false;
+        }
+        else
+        {
+            Animator.SetBool("mareado", false);
+        }
+
+        for (int i = 0; i < cantidadVillanos; i++)
+        {
+            if (distancia[i] < distanciaParaMatar && enemigo[i].sinMascara == false && enemigo[i].estaMuerto == false)
+            {
+                Instantiate(senal_izq, controladorSenal.position, Quaternion.identity);
+                Instantiate(senal_der, controladorSenal2.position, Quaternion.identity);
+                controladorSenal.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
+                controladorSenal2.position -= new Vector3(Random.Range(-0.01f, 0.01f), 0f, 0f);
+            }
+        }
+
+        if (distanciaMalo < distanciaBarra)
+        {
+            BarraDeVidaMalo.SetActive(true);
+        }
+
+        izquierda = false;
+        derecha = false;
+        matar = false;
+        saltar = false;
+        sacarMascara = false;
+
+        if (maloMuere >= 1)
+        {
+            malo.estaMuertoMalo = true;
+        }
+
+        if ((malo.sinMascaraMalo == true && vMuertos <= cantidadVillanos && vMuertos > 0) || (malo.estaMuertoMalo == true && vMuertos <= cantidadVillanos && vMuertos >= 0))
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            tiempoMuerto += Time.deltaTime;
+            if (tiempoMuerto >= 3)
+            {
+                pierdeMato();
+            }
+        }
+
+        if (conFlor)
+        {
+            Instantiate(burbuja, controladorBurbuja.position, Quaternion.identity);
+            time += Time.deltaTime;
+            flor.florInactiva = true;
+            if (time >= 10)
+            {
+                conFlor = false;
+                time = 0;
+            }
+        }
+        if (conFlor2)
+        {
+            Instantiate(burbuja, controladorBurbuja.position, Quaternion.identity);
+            time += Time.deltaTime;
+            flor2.florInactiva = true;
+            if (time >= 10)
+            {
+                conFlor2 = false;
+                time = 0;
+            }
+        }
+    }
+
+    private void TryPlayFootstepSound()
+    {
+        if (!isWalking)
+        {
+            isWalking = true;
+            StartCoroutine(PlayFootstepSound());
+        }
+    }
+
+    private void StopFootstepSound()
+    {
+        if (isWalking)
+        {
+            isWalking = false;
+            audioPasos.Stop();
+        }
+    }
+
+    private IEnumerator PlayFootstepSound()
+    {
+        audioPasos.Play();
+
+        while (isWalking)
+        {
+            yield return null;
+        }
+        audioPasos.Stop();
+    }
+
+
+    void OnCollisionEnter2D(Collision2D colision)
+    {
+        if (colision.gameObject.CompareTag("Bala") && !conFlor)
+        {
+            colisiones++;
+            mareado = true;
+            audioPasos.PlayOneShot(raulGolpeado);
+            if (colisiones >= vidas)
+            {
+                atrapado = true;
+            }
+        }
+
+
+        if (colision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+
+        if (colision.gameObject.CompareTag("mascara_suelo") && !conFlor)
+        {
+            mascara_s.toco_mascara = true;
+            colisiones++;
+            mareado = true;
+            sonido_Charco = true;
+            if (colisiones >= vidas)
+            {
+                atrapado = true;
+            }
+        }
+
+        if (!antesHabiaSonidoCharco && sonido_Charco)
+        {
+            Instantiate(sonidoCharco);
+        }
+        antesHabiaSonidoCharco = sonido_Charco;
+
+        if (colision.gameObject.CompareTag("Flor"))
+        {
+            flor.florDesactivada = true;
+        }
+        if (colision.gameObject.CompareTag("Flor2"))
+        {
+            flor2.florDesactivada = true;
+        }
+    }
+
+    void pierdeMato()
+    {
+        SceneManager.LoadScene(3);
+    }
+    void Ganar()
+    {
+        SceneManager.LoadScene(2);
+    }
+    void Die()
+    {
+        SceneManager.LoadScene(4);
+    }
+}
